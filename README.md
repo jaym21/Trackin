@@ -1,2 +1,2 @@
 # Trackin
-Android for tracking runs.
+Android app for tracking runs.
