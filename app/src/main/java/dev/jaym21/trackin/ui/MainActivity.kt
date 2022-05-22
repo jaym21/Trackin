@@ -1,7 +1,8 @@
-package dev.jaym21.trackin
+package dev.jaym21.trackin.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dev.jaym21.trackin.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
