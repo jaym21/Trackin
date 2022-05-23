@@ -19,4 +19,9 @@ object AppModule {
     fun provideDatabase(application: Application): TrackinDatabase =
         Room.databaseBuilder(application, TrackinDatabase::class.java, Constants.DATABASE_NAME)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideDao(database: TrackinDatabase) =
+        database.getRunDao()
 }
