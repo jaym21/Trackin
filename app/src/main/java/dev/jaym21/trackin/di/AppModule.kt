@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.jaym21.trackin.db.TrackinDatabase
+import dev.jaym21.trackin.util.Constants
 import javax.inject.Singleton
 
 @Module
@@ -16,6 +17,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDatabase(application: Application): TrackinDatabase =
-        Room.databaseBuilder(application, TrackinDatabase::class.java, "trackin_database")
+        Room.databaseBuilder(application, TrackinDatabase::class.java, Constants.DATABASE_NAME)
             .build()
 }
