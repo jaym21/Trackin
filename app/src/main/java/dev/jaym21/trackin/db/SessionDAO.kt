@@ -2,17 +2,17 @@ package dev.jaym21.trackin.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dev.jaym21.trackin.model.Run
+import dev.jaym21.trackin.model.Session
 
 @Dao
-interface RunDAO {
+interface SessionDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRun(run: Run)
+    suspend fun insertSession(session: Session)
 
     @Delete
-    suspend fun deleteRun(run: Run)
+    suspend fun deleteSession(session: Session)
 
     @Query("SELECT * FROM run_table ORDER BY timestamp DESC")
-    fun getAllRunsOrderByDate(): LiveData<List<Run>>
+    fun getAllSessionsOrderByDate(): LiveData<List<Session>>
 }

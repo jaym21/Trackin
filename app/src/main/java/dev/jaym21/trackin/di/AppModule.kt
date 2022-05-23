@@ -23,5 +23,5 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDao(database: TrackinDatabase) =
-        database.getRunDao()
+        database.getSessionDao()
 }

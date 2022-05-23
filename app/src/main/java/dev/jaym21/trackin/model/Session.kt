@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "run_table")
-data class Run (
-    var runImage: Bitmap? = null,
+data class Session (
+    var sessionImage: Bitmap? = null,
     var distanceInMeters: Int = 0,
     var avgSpeedInKMH: Float = 0F,
     var caloriesBurned: Int = 0,
