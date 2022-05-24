@@ -27,13 +27,13 @@ class SplashActivity: AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     } else {
-                        ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Constants.ACCESS_FINE_LOCATION_REQUEST_CODE)
+                        ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), Constants.ACCESS_FINE_LOCATION_REQUEST_CODE)
                     }
                 } else {
                     ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), Constants.ACCESS_COARSE_LOCATION_REQUEST_CODE)
                 }
             } else {
-                ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), Constants.ACCESS_BACKGROUND_LOCATION_REQUEST_CODE)
+                ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Constants.ACCESS_BACKGROUND_LOCATION_REQUEST_CODE)
             }
 
         } else {
@@ -43,10 +43,10 @@ class SplashActivity: AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Constants.ACCESS_FINE_LOCATION_REQUEST_CODE)
+                    ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), Constants.ACCESS_FINE_LOCATION_REQUEST_CODE)
                 }
             } else {
-                ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), Constants.ACCESS_COARSE_LOCATION_REQUEST_CODE)
+                ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Constants.ACCESS_COARSE_LOCATION_REQUEST_CODE)
             }
         }
     }
