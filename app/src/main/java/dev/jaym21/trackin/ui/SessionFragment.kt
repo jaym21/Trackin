@@ -29,6 +29,9 @@ class SessionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.mapView.onCreate(savedInstanceState)
 
+        binding.mapView.getMapAsync {
+            map = it
+        }
     }
 
     override fun onStart() {
