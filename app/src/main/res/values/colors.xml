@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_200">#668cff</color>
-    <color name="blue_500">#2050df</color>
-    <color name="blue_700">#0033cc</color>
+    <color name="blue_500">#3366ff</color>
+    <color name="blue_700">#0040ff</color>
     <color name="black_bg">#121212</color>
     <color name="black_light">#272727</color>
     <color name="black">#FF000000</color>
