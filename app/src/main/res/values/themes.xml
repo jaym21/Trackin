@@ -24,4 +24,8 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="PermissionAlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/permission_dialog_bg</item>
+    </style>
+
 </resources>

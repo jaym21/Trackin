@@ -1,96 +1,105 @@
 package dev.jaym21.trackin.ui
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import dev.jaym21.trackin.R
 import dev.jaym21.trackin.util.Constants
 
 class SplashActivity: AppCompatActivity() {
 
+    private val PERMISSIONS_BELOW_Q = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+    private val PERMISSIONS_ABOVE_Q = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+    )
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val isFineLocPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        val isCoarseLocPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        val isBackgroundLocPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED
+        checkIfPermissionsGranted()
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (isFineLocPermissionGranted) {
-                if (isCoarseLocPermissionGranted) {
-                    if (isBackgroundLocPermissionGranted) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION), Constants.ACCESS_FINE_LOCATION_REQUEST_CODE)
-                    }
-                } else {
-                    ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), Constants.ACCESS_COARSE_LOCATION_REQUEST_CODE)
-                }
-            } else {
-                ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Constants.ACCESS_BACKGROUND_LOCATION_REQUEST_CODE)
-            }
+    override fun onResume() {
+        super.onResume()
 
+        if (checkIfPermissionsGranted()) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         } else {
-            if (isFineLocPermissionGranted) {
-                if (isCoarseLocPermissionGranted) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), Constants.ACCESS_FINE_LOCATION_REQUEST_CODE)
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                allPermissionsLauncher.launch(PERMISSIONS_ABOVE_Q)
             } else {
-                ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), Constants.ACCESS_COARSE_LOCATION_REQUEST_CODE)
+                allPermissionsLauncher.launch(PERMISSIONS_BELOW_Q)
             }
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
-            Constants.ACCESS_FINE_LOCATION_REQUEST_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] == PackageManager.PERMISSION_DENIED) {
-//                    val intent = Intent(this, NoPermissionActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-                }else {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-            Constants.ACCESS_COARSE_LOCATION_REQUEST_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] == PackageManager.PERMISSION_DENIED) {
-//                    val intent = Intent(this, NoPermissionActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-                }else {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-            Constants.ACCESS_BACKGROUND_LOCATION_REQUEST_CODE -> {
-                if (grantResults.isEmpty() || grantResults[0] == PackageManager.PERMISSION_DENIED) {
-//                    val intent = Intent(this, NoPermissionActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-                }else {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+    private val allPermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { perms ->
+        if (perms.values.all { it }) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val deniedPermission = perms.filter { !it.value }.keys.first()
+            if (!shouldShowRequestPermissionRationale(deniedPermission)) {
+                showSettingsDialog()
             }
         }
+    }
+
+    private fun checkIfPermissionsGranted(): Boolean {
+        var isGranted = false
+
+        isGranted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            hasPermissions(this, *PERMISSIONS_ABOVE_Q)
+        } else {
+            hasPermissions(this, *PERMISSIONS_BELOW_Q)
+        }
+
+        return isGranted
+    }
+
+    private fun hasPermissions(context: Context, vararg permissions: String): Boolean =
+        permissions.all {
+            ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+        }
+
+    private fun showSettingsDialog() {
+        val builder = AlertDialog.Builder(this, R.style.PermissionAlertDialog).create()
+
+        val view = layoutInflater.inflate(R.layout.permission_settings_layout, null)
+        val settings: TextView = view.findViewById(R.id.tvSettings)
+
+        builder.setView(view)
+        builder.setCanceledOnTouchOutside(false)
+
+        settings.setOnClickListener {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                data = Uri.fromParts("package", packageName, null)
+            }
+            startActivity(intent)
+            builder.dismiss()
+        }
+        builder.show()
     }
 }
