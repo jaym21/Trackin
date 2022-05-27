@@ -17,8 +17,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.util.Constants
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 
-class SplashActivity: AppCompatActivity() {
+class SplashActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
     private val PERMISSIONS_BELOW_Q = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -34,72 +36,56 @@ class SplashActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkIfPermissionsGranted()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
         if (checkIfPermissionsGranted()) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                allPermissionsLauncher.launch(PERMISSIONS_ABOVE_Q)
-            } else {
-                allPermissionsLauncher.launch(PERMISSIONS_BELOW_Q)
-            }
+            requestLocationPermissions()
         }
     }
 
-    private val allPermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { perms ->
-        if (perms.values.all { it }) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+    private fun checkIfPermissionsGranted(): Boolean =
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            EasyPermissions.hasPermissions(this,*PERMISSIONS_BELOW_Q)
         } else {
-            val deniedPermission = perms.filter { !it.value }.keys.first()
-            if (!shouldShowRequestPermissionRationale(deniedPermission)) {
-                showSettingsDialog()
-            }
+            EasyPermissions.hasPermissions(this,*PERMISSIONS_ABOVE_Q)
         }
-    }
 
-    private fun checkIfPermissionsGranted(): Boolean {
-        var isGranted = false
-
-        isGranted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            hasPermissions(this, *PERMISSIONS_ABOVE_Q)
+    private fun requestLocationPermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            EasyPermissions.requestPermissions(
+                this,
+                "This app requires location permissions to function, allow all location permissions.",
+                Constants.LOCATION_REQUEST_CODE,
+                *PERMISSIONS_BELOW_Q
+            )
         } else {
-            hasPermissions(this, *PERMISSIONS_BELOW_Q)
+            EasyPermissions.requestPermissions(
+                this,
+                "This app requires location permissions to function, allow all location permissions.",
+                Constants.LOCATION_REQUEST_CODE,
+                *PERMISSIONS_ABOVE_Q
+            )
         }
-
-        return isGranted
     }
 
-    private fun hasPermissions(context: Context, vararg permissions: String): Boolean =
-        permissions.all {
-            ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        } else {
+            requestLocationPermissions()
         }
-
-    private fun showSettingsDialog() {
-        val builder = AlertDialog.Builder(this, R.style.PermissionAlertDialog).create()
-
-        val view = layoutInflater.inflate(R.layout.permission_settings_layout, null)
-        val settings: TextView = view.findViewById(R.id.tvSettings)
-
-        builder.setView(view)
-        builder.setCanceledOnTouchOutside(false)
-
-        settings.setOnClickListener {
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                data = Uri.fromParts("package", packageName, null)
-            }
-            startActivity(intent)
-            builder.dismiss()
-        }
-        builder.show()
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
 }

@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="dev.jaym21.trackin.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_sessionFragment"
+            app:destination="@id/sessionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/sessionFragment"
