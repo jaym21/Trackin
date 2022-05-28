@@ -27,7 +27,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black_light">
+            android:background="@color/black_light"
+            android:padding="16dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabPlayPause"
@@ -38,9 +39,7 @@
                 app:maxImageSize="32dp"
                 android:scaleType="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvTimer"
