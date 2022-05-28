@@ -4,4 +4,9 @@ object Constants {
 
     const val DATABASE_NAME = "trackin_database"
     const val LOCATION_REQUEST_CODE = 100
+
+    //service
+    const val ACTION_START_OR_RESUME = "action_start_or_resume"
+    const val ACTION_PAUSE = "action_pause"
+    const val ACTION_STOP = "action_stop"
 }
