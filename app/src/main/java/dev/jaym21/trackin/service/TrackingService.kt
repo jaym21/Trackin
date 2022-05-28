@@ -1,6 +1,9 @@
 package dev.jaym21.trackin.service
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.LifecycleService
 import dev.jaym21.trackin.util.Constants
@@ -22,5 +25,16 @@ class TrackingService: LifecycleService() {
             }
         }
         return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun startForegroundService() {
+
+    }
+
+    private fun createNotificationChannel(notificationManager: NotificationManager) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O)
+            return
+        val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, Constants.NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW)
+        notificationManager.createNotificationChannel(channel)
     }
 }

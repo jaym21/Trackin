@@ -35,6 +35,10 @@ class SessionFragment : Fragment() {
         binding.mapView.getMapAsync {
             map = it
         }
+
+        binding.fabPlayPause.setOnClickListener {
+            commandToService(Constants.ACTION_START_OR_RESUME)
+        }
     }
 
     private fun commandToService(action: String) {
