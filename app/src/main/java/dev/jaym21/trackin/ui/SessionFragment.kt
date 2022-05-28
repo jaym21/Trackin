@@ -10,6 +10,7 @@ import com.google.android.gms.maps.GoogleMap
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentSessionBinding
 import dev.jaym21.trackin.service.TrackingService
+import dev.jaym21.trackin.util.Constants
 
 class SessionFragment : Fragment() {
 
