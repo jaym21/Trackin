@@ -5,6 +5,10 @@
     android:id="@+id/nav_graph.xml"
     app:startDestination="@id/homeFragment">
 
+    <action android:id="@+id/action_global_sessionFragment"
+        app:destination="@+id/sessionFragment"
+        app:launchSingleTop="true"/>
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="dev.jaym21.trackin.ui.HomeFragment"
