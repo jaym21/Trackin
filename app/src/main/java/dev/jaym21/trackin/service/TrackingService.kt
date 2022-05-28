@@ -2,6 +2,7 @@ package dev.jaym21.trackin.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -9,6 +10,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import dev.jaym21.trackin.R
+import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
 
 class TrackingService: LifecycleService() {
@@ -33,6 +35,17 @@ class TrackingService: LifecycleService() {
     private fun startForegroundService() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(notificationManager)
+
+        val notificationClickIntent = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java).also {
+                it.action = Constants.ACTION_SHOW_SESSION_FRAGMENT
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+
         //TODO: change to app icon
         val notificationBuilder = NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
