@@ -1,5 +1,6 @@
 package dev.jaym21.trackin.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import com.google.android.gms.maps.GoogleMap
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentSessionBinding
+import dev.jaym21.trackin.service.TrackingService
 
 class SessionFragment : Fragment() {
 
@@ -31,6 +33,13 @@ class SessionFragment : Fragment() {
 
         binding.mapView.getMapAsync {
             map = it
+        }
+    }
+
+    private fun commandToService(action: String) {
+        Intent(requireContext(), TrackingService::class.java).also {
+            it.action = action
+            requireContext().startService(it)
         }
     }
 
