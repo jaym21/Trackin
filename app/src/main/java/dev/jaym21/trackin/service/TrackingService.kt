@@ -15,10 +15,17 @@ import dev.jaym21.trackin.util.Constants
 
 class TrackingService: LifecycleService() {
 
+    var isFirstRun = true
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             Constants.ACTION_START_OR_RESUME -> {
-                Log.d("TAGYOYO", "onStartCommand: ACTION_START_OR_RESUME")
+                if (isFirstRun) {
+                    startForegroundService()
+                    isFirstRun = false
+                } else{
+                    Log.d("TAGYOYO", "onStartCommand: RESUME")
+                }
             }
 
             Constants.ACTION_PAUSE -> {
@@ -51,8 +58,11 @@ class TrackingService: LifecycleService() {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Trackin")
             .setContentText("00:00:00")
+            .setContentIntent(notificationClickIntent)
             .setAutoCancel(false)
             .setOngoing(true)
+
+        startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build())
     }
 
     private fun createNotificationChannel(notificationManager: NotificationManager) {
