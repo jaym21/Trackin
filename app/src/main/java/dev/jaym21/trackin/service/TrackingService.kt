@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -49,7 +50,14 @@ class TrackingService: LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
+
+        initValues()
         fusedLocationProviderClient = FusedLocationProviderClient(this)
+
+        //getting current isTracking state and updating the user's location update request
+        isTracking.observe(this, Observer {
+            updateLocationTracking(it)
+        })
     }
 
     private fun initValues() {
@@ -82,6 +90,7 @@ class TrackingService: LifecycleService() {
     private fun startForegroundService() {
 
         addEmptyPolyline()
+        isTracking.postValue(true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(notificationManager)
@@ -133,6 +142,7 @@ class TrackingService: LifecycleService() {
                 result.locations.let { locations ->
                     for (location in locations) {
                         addPathPoint(location)
+                        Log.d("TAGYOYO", "onLocationResult:latitude ${location.latitude} longitude ${location.longitude}")
                     }
                 }
             }
