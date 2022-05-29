@@ -99,6 +99,12 @@ class TrackingService: LifecycleService() {
     }
 
     private fun addPathPoint(location: Location?) {
-
+        location?.let {
+            val positionLatLng = LatLng(location.latitude, location.longitude)
+            pathPoints.value?.apply {
+                last().add(positionLatLng)
+                pathPoints.postValue(this)
+            }
+        }
     }
 }
