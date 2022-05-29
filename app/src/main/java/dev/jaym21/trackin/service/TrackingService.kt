@@ -9,13 +9,28 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
+import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.maps.model.LatLng
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
 
+typealias Polyline = MutableList<LatLng>
+typealias Polylines = MutableList<Polyline>
+
 class TrackingService: LifecycleService() {
 
     var isFirstRun = true
+
+    companion object {
+        val isTracking: MutableLiveData<Boolean> = MutableLiveData()
+        val pathPoints: MutableLiveData<Polylines> = MutableLiveData()
+    }
+
+    private fun initValues() {
+        isTracking.postValue(false)
+        pathPoints.postValue(mutableListOf())
+    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
@@ -70,5 +85,12 @@ class TrackingService: LifecycleService() {
             return
         val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, Constants.NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW)
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun addEmptyPolyline() {
+        pathPoints.value?.apply {
+            add(mutableListOf())
+            pathPoints.postValue(this)
+        } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
     }
 }
