@@ -55,6 +55,9 @@ class TrackingService: LifecycleService() {
     }
 
     private fun startForegroundService() {
+
+        addEmptyPolyline()
+
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(notificationManager)
 
