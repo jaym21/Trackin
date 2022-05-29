@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.GoogleMap
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentSessionBinding
@@ -18,6 +19,7 @@ class SessionFragment : Fragment() {
     private val binding: FragmentSessionBinding
         get() = _binding!!
     private var map: GoogleMap? = null
+    private var isPaused = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +39,7 @@ class SessionFragment : Fragment() {
         }
 
         binding.fabPlayPause.setOnClickListener {
+            toggleIconDrawable()
             commandToService(Constants.ACTION_START_OR_RESUME)
         }
     }
@@ -45,6 +48,16 @@ class SessionFragment : Fragment() {
         Intent(requireContext(), TrackingService::class.java).also {
             it.action = action
             requireContext().startService(it)
+        }
+    }
+
+    private fun toggleIconDrawable() {
+        isPaused = if (isPaused) {
+            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
+            false
+        } else {
+            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
+            true
         }
     }
 
