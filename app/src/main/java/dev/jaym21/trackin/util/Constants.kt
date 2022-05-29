@@ -4,6 +4,8 @@ object Constants {
 
     const val DATABASE_NAME = "trackin_database"
     const val LOCATION_REQUEST_CODE = 100
+    const val LOCATION_UPDATE_INTERVAL = 5000L
+    const val FASTEST_LOCATION_INTERVAL = 2000L
 
     //service
     const val ACTION_START_OR_RESUME = "action_start_or_resume"

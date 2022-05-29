@@ -1,5 +1,6 @@
 package dev.jaym21.trackin.service
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,17 +13,28 @@ import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
+import pub.devrel.easypermissions.EasyPermissions
 
 typealias Polyline = MutableList<LatLng>
 typealias Polylines = MutableList<Polyline>
 
 class TrackingService: LifecycleService() {
 
+    private val PERMISSIONS_BELOW_Q = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+    private val PERMISSIONS_ABOVE_Q = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+    )
     var isFirstRun = true
 
     companion object {
@@ -99,6 +111,18 @@ class TrackingService: LifecycleService() {
         }
     }
 
+    private fun updateLocationTracking(isTracking: Boolean) {
+        if (isTracking) {
+            if (checkIfPermissionsGranted()) {
+                val locationRequest = LocationRequest.create().apply {
+                    interval = Constants.LOCATION_UPDATE_INTERVAL
+                    fastestInterval = Constants.FASTEST_LOCATION_INTERVAL
+                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                }
+            }
+        }
+    }
+
     private fun createNotificationChannel(notificationManager: NotificationManager) {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O)
             return
@@ -122,4 +146,11 @@ class TrackingService: LifecycleService() {
             }
         }
     }
+
+    private fun checkIfPermissionsGranted(): Boolean =
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            EasyPermissions.hasPermissions(this,*PERMISSIONS_BELOW_Q)
+        } else {
+            EasyPermissions.hasPermissions(this,*PERMISSIONS_ABOVE_Q)
+        }
 }
