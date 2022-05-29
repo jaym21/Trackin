@@ -11,6 +11,8 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.ui.MainActivity
@@ -82,6 +84,19 @@ class TrackingService: LifecycleService() {
             .setOngoing(true)
 
         startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build())
+    }
+
+    val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(result: LocationResult) {
+            super.onLocationResult(result)
+            if (isTracking.value!!) {
+                result.locations.let { locations ->
+                    for (location in locations) {
+                        addPathPoint(location)
+                    }
+                }
+            }
+        }
     }
 
     private fun createNotificationChannel(notificationManager: NotificationManager) {
