@@ -40,10 +40,17 @@ class TrackingService: LifecycleService() {
         Manifest.permission.ACCESS_BACKGROUND_LOCATION,
     )
     var isFirstRun = true
+    private val sessionTimeInSeconds: MutableLiveData<Long> = MutableLiveData()
+    private var isTimerEnabled = false
+    private var sessionTime = 0L
+    private var lapTime = 0L
+    private var timeStarted = 0L
+    private var lastSecondTimeStamp = 0L
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
 
     companion object {
+        val sessionTimeInMillis: MutableLiveData<Long> = MutableLiveData()
         val isTracking: MutableLiveData<Boolean> = MutableLiveData()
         val pathPoints: MutableLiveData<Polylines> = MutableLiveData()
     }
