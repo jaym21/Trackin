@@ -77,7 +77,7 @@ class TrackingService: LifecycleService() {
             }
 
             Constants.ACTION_PAUSE -> {
-                Log.d("TAGYOYO", "onStartCommand: ACTION_PAUSE")
+                isTracking.postValue(false)
             }
 
             Constants.ACTION_STOP -> {
