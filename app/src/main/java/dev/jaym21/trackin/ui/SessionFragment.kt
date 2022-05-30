@@ -41,11 +41,28 @@ class SessionFragment : Fragment() {
 
         binding.mapView.getMapAsync {
             map = it
+            addAllPolylinesOnMap()
         }
 
         binding.fabPlayPause.setOnClickListener {
 //            togglePlayPauseDrawable()
-            commandToService(Constants.ACTION_START_OR_RESUME)
+            if (isTracking) {
+                commandToService(Constants.ACTION_PAUSE)
+            } else {
+                commandToService(Constants.ACTION_START_OR_RESUME)
+            }
+        }
+
+        TrackingService.isTracking.observe(viewLifecycleOwner) {
+            //when tracking state is changed
+            updateTracking(it)
+        }
+
+        TrackingService.pathPoints.observe(viewLifecycleOwner) {
+            //when new path point is added
+            pathPoints = it
+            addLatestPolyline()
+            moveCameraToLocation()
         }
     }
 
