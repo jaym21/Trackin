@@ -44,8 +44,20 @@ class SessionFragment : Fragment() {
         }
 
         binding.fabPlayPause.setOnClickListener {
-            togglePlayPauseDrawable()
+//            togglePlayPauseDrawable()
             commandToService(Constants.ACTION_START_OR_RESUME)
+        }
+    }
+
+    //update button state according to current isTracking state
+    private fun updateTracking(isTracking: Boolean) {
+        this.isTracking = isTracking
+        if (isTracking) {
+            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
+            binding.ivStopSession.visibility = View.GONE
+        } else {
+            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
+            binding.ivStopSession.visibility = View.VISIBLE
         }
     }
 
@@ -93,16 +105,16 @@ class SessionFragment : Fragment() {
         }
     }
 
-    //toggle play/pause drawable on button click
-    private fun togglePlayPauseDrawable() {
-        isPaused = if (isPaused) {
-            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
-            false
-        } else {
-            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
-            true
-        }
-    }
+//    //toggle play/pause drawable on button click
+//    private fun togglePlayPauseDrawable() {
+//        isPaused = if (isPaused) {
+//            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
+//            false
+//        } else {
+//            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
+//            true
+//        }
+//    }
 
     override fun onStart() {
         super.onStart()
