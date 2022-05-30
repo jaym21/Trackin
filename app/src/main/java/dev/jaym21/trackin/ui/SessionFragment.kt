@@ -68,6 +68,18 @@ class SessionFragment : Fragment() {
         }
     }
 
+    //to add all polylines on map incase the fragment is recreated due to rotation of device
+    private fun addAllPolylinesOnMap() {
+        for (polyline in pathPoints) {
+            val polylineOptions = PolylineOptions()
+                .width(Constants.POLYLINE_WIDTH)
+                .color(Constants.POLYLINE_COLOR)
+                .addAll(polyline)
+
+            map?.addPolyline(polylineOptions)
+        }
+    }
+
     private fun togglePlayPauseDrawable() {
         isPaused = if (isPaused) {
             binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
