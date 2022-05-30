@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.PolylineOptions
 import dev.jaym21.trackin.R
@@ -48,6 +49,7 @@ class SessionFragment : Fragment() {
         }
     }
 
+    //function to send action to service
     private fun commandToService(action: String) {
         Intent(requireContext(), TrackingService::class.java).also {
             it.action = action
@@ -55,6 +57,7 @@ class SessionFragment : Fragment() {
         }
     }
 
+    //function to add latest polyline on map and connect it with the previous polyline
     private fun addLatestPolyline() {
         if (pathPoints.isNotEmpty() && pathPoints.last().size > 1) {
             val penultimateLatLng = pathPoints.last()[pathPoints.last().size - 2]
@@ -80,6 +83,17 @@ class SessionFragment : Fragment() {
         }
     }
 
+    //move camera to the latest location of user in case of addition of a polyline
+    private fun moveCameraToLocation() {
+        if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()) {
+            map?.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                pathPoints.last().last(),
+                Constants.DEFAULT_MAP_ZOOM
+            ))
+        }
+    }
+
+    //toggle play/pause drawable on button click
     private fun togglePlayPauseDrawable() {
         isPaused = if (isPaused) {
             binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))

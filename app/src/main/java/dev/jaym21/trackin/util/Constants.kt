@@ -10,6 +10,7 @@ object Constants {
     const val FASTEST_LOCATION_INTERVAL = 2000L
     const val POLYLINE_WIDTH = 8f
     const val POLYLINE_COLOR = Color.BLUE
+    const val DEFAULT_MAP_ZOOM = 15f
 
     //service
     const val ACTION_START_OR_RESUME = "action_start_or_resume"
