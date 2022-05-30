@@ -15,6 +15,7 @@ import dev.jaym21.trackin.databinding.FragmentSessionBinding
 import dev.jaym21.trackin.service.Polyline
 import dev.jaym21.trackin.service.TrackingService
 import dev.jaym21.trackin.util.Constants
+import dev.jaym21.trackin.util.Utilities
 
 class SessionFragment : Fragment() {
 
@@ -22,9 +23,9 @@ class SessionFragment : Fragment() {
     private val binding: FragmentSessionBinding
         get() = _binding!!
     private var map: GoogleMap? = null
-    private var isPaused = true
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
+    private var currentTimeInMillis = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +64,12 @@ class SessionFragment : Fragment() {
             pathPoints = it
             addLatestPolyline()
             moveCameraToLocation()
+        }
+
+        TrackingService.sessionTimeInMillis.observe(viewLifecycleOwner) {
+            currentTimeInMillis = it
+            val timerFormat = Utilities.formatTimestampToTimer(it, true)
+            binding.tvTimer.text = timerFormat
         }
     }
 
@@ -121,17 +128,6 @@ class SessionFragment : Fragment() {
             ))
         }
     }
-
-//    //toggle play/pause drawable on button click
-//    private fun togglePlayPauseDrawable() {
-//        isPaused = if (isPaused) {
-//            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
-//            false
-//        } else {
-//            binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
-//            true
-//        }
-//    }
 
     override fun onStart() {
         super.onStart()
