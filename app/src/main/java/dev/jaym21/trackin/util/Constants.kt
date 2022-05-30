@@ -16,6 +16,7 @@ object Constants {
     const val ACTION_START_OR_RESUME = "action_start_or_resume"
     const val ACTION_PAUSE = "action_pause"
     const val ACTION_STOP = "action_stop"
+    const val TIMER_UPDATE_INTERVAL = 50L
 
     //notification
     const val NOTIFICATION_ID = 1

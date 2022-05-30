@@ -23,6 +23,10 @@ import com.google.android.gms.maps.model.LatLng
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
 
 typealias Polyline = MutableList<LatLng>
@@ -79,12 +83,13 @@ class TrackingService: LifecycleService() {
                     startForegroundService()
                     isFirstRun = false
                 } else{
-                    Log.d("TAGYOYO", "onStartCommand: RESUME")
+                    startTimer()
                 }
             }
 
             Constants.ACTION_PAUSE -> {
                 isTracking.postValue(false)
+                isTimerEnabled = false
             }
 
             Constants.ACTION_STOP -> {
@@ -95,8 +100,7 @@ class TrackingService: LifecycleService() {
     }
 
     private fun startForegroundService() {
-
-        addEmptyPolyline()
+        startTimer()
         isTracking.postValue(true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -122,6 +126,30 @@ class TrackingService: LifecycleService() {
             .setOngoing(true)
 
         startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build())
+    }
+
+    private fun startTimer() {
+        addEmptyPolyline()
+        isTracking.postValue(true)
+        isTimerEnabled = true
+        timeStarted = System.currentTimeMillis()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            while (isTracking.value!!) {
+                //time difference between now and time session started
+                lapTime = System.currentTimeMillis() - timeStarted
+                //updating session time in millis total previous time plus new lap time
+                sessionTimeInMillis.postValue(sessionTime + lapTime)
+                //checking if the session time in millis is more than or equal to previous second passed plus one second then increasing a second in session time in seconds
+                if (sessionTimeInMillis.value!! >= lastSecondTimeStamp + 1000L) {
+                    sessionTimeInSeconds.postValue(sessionTimeInSeconds.value!! +  1)
+                    lastSecondTimeStamp += 1000L
+                }
+                delay(Constants.TIMER_UPDATE_INTERVAL)
+            }
+            //updating the total session time by adding the latest lap time
+            sessionTime += lapTime
+        }
     }
 
     @SuppressLint("MissingPermission")
