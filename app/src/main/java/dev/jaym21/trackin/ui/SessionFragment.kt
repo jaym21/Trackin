@@ -46,7 +46,6 @@ class SessionFragment : Fragment() {
         }
 
         binding.fabPlayPause.setOnClickListener {
-//            togglePlayPauseDrawable()
             if (isTracking) {
                 commandToService(Constants.ACTION_PAUSE)
             } else {
