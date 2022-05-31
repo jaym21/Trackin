@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -53,6 +54,7 @@ class SessionFragment : Fragment() {
             if (isTracking) {
                 commandToService(Constants.ACTION_PAUSE)
             } else {
+                binding.ivCancelSession.visibility = View.VISIBLE
                 commandToService(Constants.ACTION_START_OR_RESUME)
             }
         }
@@ -89,6 +91,7 @@ class SessionFragment : Fragment() {
             binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
             binding.ivStopSession.visibility = View.GONE
         } else {
+            binding.ivCancelSession.visibility = View.VISIBLE
             binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
             binding.ivStopSession.visibility = View.VISIBLE
         }
@@ -106,8 +109,8 @@ class SessionFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext(), R.style.CancelSessionAlertDialog).create()
 
         val view = layoutInflater.inflate(R.layout.cancel_session_layout, null)
-        val noButton: MaterialButton = view.findViewById(R.id.tvNoCancelDialog)
-        val yesButton: MaterialButton = view.findViewById(R.id.tvYesCancelDialog)
+        val noButton: TextView = view.findViewById(R.id.tvNoCancelDialog)
+        val yesButton: TextView = view.findViewById(R.id.tvYesCancelDialog)
 
         builder.setView(view)
         builder.setCanceledOnTouchOutside(false)
