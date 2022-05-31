@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.PolylineOptions
@@ -90,6 +91,12 @@ class SessionFragment : Fragment() {
             it.action = action
             requireContext().startService(it)
         }
+    }
+
+    //function to cancel the session and not save the session data to database
+    private fun cancelSession() {
+        commandToService(Constants.ACTION_STOP)
+        findNavController().popBackStack()
     }
 
     //function to add latest polyline on map and connect it with the previous polyline
