@@ -48,6 +48,7 @@ class TrackingService: LifecycleService() {
         Manifest.permission.ACCESS_BACKGROUND_LOCATION,
     )
     var isFirstRun = true
+    var isServiceKilled = false
     private val sessionTimeInSeconds: MutableLiveData<Long> = MutableLiveData()
     private var isTimerEnabled = false
     private var sessionTime = 0L
@@ -97,12 +98,11 @@ class TrackingService: LifecycleService() {
             }
 
             Constants.ACTION_PAUSE -> {
-                isTracking.postValue(false)
-                isTimerEnabled = false
+                pauseService()
             }
 
             Constants.ACTION_STOP -> {
-                Log.d("TAGYOYO", "onStartCommand: ACTION_STOP")
+                killService()
             }
         }
         return super.onStartCommand(intent, flags, startId)
@@ -118,10 +118,13 @@ class TrackingService: LifecycleService() {
         startForeground(Constants.NOTIFICATION_ID, baseNotificationBuilder.build())
 
         sessionTimeInSeconds.observe(this) {
-            //updating the session time in seconds in notification every second
-            val notification = currentNotificationBuilder
-                .setContentText(Utilities.formatTimestampToTimer(it * 1000L))
-            notificationManager.notify(Constants.NOTIFICATION_ID, notification.build())
+            //checking if service is killed, if so then not showing notification
+            if (!isServiceKilled) {
+                //updating the session time in seconds in notification every second
+                val notification = currentNotificationBuilder
+                    .setContentText(Utilities.formatTimestampToTimer(it * 1000L))
+                notificationManager.notify(Constants.NOTIFICATION_ID, notification.build())
+            }
         }
     }
 
@@ -147,6 +150,20 @@ class TrackingService: LifecycleService() {
             //updating the total session time by adding the latest lap time
             sessionTime += lapTime
         }
+    }
+
+    private fun killService() {
+        isServiceKilled = true
+        isFirstRun = true
+        pauseService()
+        initValues()
+        stopForeground(true)
+        stopSelf()
+    }
+
+    private fun pauseService() {
+        isTracking.postValue(false)
+        isTimerEnabled = false
     }
 
     @SuppressLint("MissingPermission")
@@ -193,11 +210,14 @@ class TrackingService: LifecycleService() {
             set(currentNotificationBuilder, ArrayList<NotificationCompat.Action>())
         }
 
-        //adding action to pause or resume according to the tracking state
-        currentNotificationBuilder = baseNotificationBuilder
-            .addAction(actionDrawable, actionText, actionPendingIntent)
+        //checking if service is killed, if so then not showing notification
+        if (!isServiceKilled) {
+            //adding action to pause or resume according to the tracking state
+            currentNotificationBuilder = baseNotificationBuilder
+                .addAction(actionDrawable, actionText, actionPendingIntent)
 
-        notificationManager.notify(Constants.NOTIFICATION_ID, currentNotificationBuilder.build())
+            notificationManager.notify(Constants.NOTIFICATION_ID, currentNotificationBuilder.build())
+        }
     }
 
     private val locationCallback = object : LocationCallback() {
