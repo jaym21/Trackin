@@ -24,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
+import dev.jaym21.trackin.util.Utilities
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -73,6 +74,7 @@ class TrackingService: LifecycleService() {
         //getting current isTracking state and updating the user's location update request
         isTracking.observe(this, Observer {
             updateLocationTracking(it)
+            updateNotificationTrackingState(it)
         })
     }
 
@@ -114,6 +116,13 @@ class TrackingService: LifecycleService() {
         createNotificationChannel(notificationManager)
 
         startForeground(Constants.NOTIFICATION_ID, baseNotificationBuilder.build())
+
+        sessionTimeInSeconds.observe(this) {
+            //updating the session time in seconds in notification every second
+            val notification = currentNotificationBuilder
+                .setContentText(Utilities.formatTimestampToTimer(it * 1000L))
+            notificationManager.notify(Constants.NOTIFICATION_ID, notification.build())
+        }
     }
 
     private fun startTimer() {
@@ -159,8 +168,9 @@ class TrackingService: LifecycleService() {
     }
 
     private fun updateNotificationTrackingState(isTracking: Boolean) {
-        //text to be shown in notification action button according to the current tracking state
+        //text and drawable to be shown in notification action button according to the current tracking state
         val actionText = if (isTracking) "Pause" else "Resume"
+        val actionDrawable = if(isTracking) R.drawable.ic_pause else R.drawable.ic_play
 
         //pending intent for the click of action text
         val actionPendingIntent = if (isTracking) {
@@ -172,8 +182,22 @@ class TrackingService: LifecycleService() {
             val resumeIntent = Intent(this, TrackingService::class.java).apply {
                 action = Constants.ACTION_START_OR_RESUME
             }
-            PendingIntent.getService(this, 1, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getService(this, 2, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
+
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        //clearing all previous actions added in current notification before adding new one to avoid creating a stack
+        currentNotificationBuilder.javaClass.getDeclaredField("mActions").apply {
+            isAccessible = true
+            set(currentNotificationBuilder, ArrayList<NotificationCompat.Action>())
+        }
+
+        //adding action to pause or resume according to the tracking state
+        currentNotificationBuilder = baseNotificationBuilder
+            .addAction(actionDrawable, actionText, actionPendingIntent)
+
+        notificationManager.notify(Constants.NOTIFICATION_ID, currentNotificationBuilder.build())
     }
 
     private val locationCallback = object : LocationCallback() {
