@@ -10,7 +10,7 @@
         android:id="@+id/tvDialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/permissions_required"
+        android:text="@string/cancel_session"
         android:textSize="16sp"
         android:textColor="@color/white"
         android:fontFamily="@font/avenir_semibold"
@@ -20,7 +20,7 @@
         android:id="@+id/tvDialogBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/this_app_may_not_work_correctly_without_the_requested_permissions_open_the_app_settings_to_modify_app_permissions_set_location_permission_to_allow_all_the_time"
+        android:text="@string/do_you_want_to_cancel_this_session_the_data_of_this_session_will_be_lost_forever"
         android:textSize="14sp"
         android:textColor="@color/white_alpha_85"
         android:fontFamily="@font/avenir_medium"
@@ -28,14 +28,27 @@
         android:layout_marginTop="16dp"/>
 
     <TextView
-        android:id="@+id/tvSettings"
+        android:id="@+id/tvNoCancelDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings"
+        android:text="@string/no"
+        android:textColor="@color/white_alpha_60"
+        android:fontFamily="@font/avenir_semibold"
+        app:layout_constraintTop_toBottomOf="@id/tvDialogBody"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/tvYesCancelDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yes"
         android:textColor="@color/blue_500"
         android:fontFamily="@font/avenir_semibold"
         app:layout_constraintTop_toBottomOf="@id/tvDialogBody"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

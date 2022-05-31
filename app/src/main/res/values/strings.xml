@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Trackin</string>
-    <string name="permissions_required">Permissions Required</string>
-    <string name="settings">Settings</string>
-    <string name="this_app_may_not_work_correctly_without_the_requested_permissions_open_the_app_settings_to_modify_app_permissions_set_location_permission_to_allow_all_the_time">This app may not work correctly without the requested permissions. Open the app settings to modify app permissions.Set location permission to \"Allow all the time\".</string>
+    <string name="cancel_session">Cancel Session</string>
+    <string name="do_you_want_to_cancel_this_session_the_data_of_this_session_will_be_lost_forever">Do you want to cancel this session, the data of this session will be lost forever?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

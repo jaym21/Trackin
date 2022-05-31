@@ -54,6 +54,12 @@ class SessionFragment : Fragment() {
             }
         }
 
+        binding.ivCancelSession.setOnClickListener {
+            if (currentTimeInMillis > 0L) {
+
+            }
+        }
+
         TrackingService.isTracking.observe(viewLifecycleOwner) {
             //when tracking state is changed
             updateTracking(it)
