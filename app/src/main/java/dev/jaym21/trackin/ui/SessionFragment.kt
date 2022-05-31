@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,20 +19,27 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentSessionBinding
+import dev.jaym21.trackin.model.Session
 import dev.jaym21.trackin.service.Polyline
 import dev.jaym21.trackin.service.TrackingService
 import dev.jaym21.trackin.util.Constants
 import dev.jaym21.trackin.util.Utilities
+import dev.jaym21.trackin.viewmodel.MainViewModel
+import java.util.*
+import kotlin.math.round
 
 class SessionFragment : Fragment() {
 
     private var _binding: FragmentSessionBinding? = null
     private val binding: FragmentSessionBinding
         get() = _binding!!
+    private val mainViewModel: MainViewModel by viewModels()
     private var map: GoogleMap? = null
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
     private var currentTimeInMillis = 0L
+    //TODO: change to dynamic
+    val userWeight = 70
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -187,6 +195,32 @@ class SessionFragment : Fragment() {
         ))
     }
 
+    //function to end the session and save the session data to database
+    private fun endSessionAndSaveToDatabase() {
+        map?.snapshot { bitmap ->
+            var distanceInMeters = 0
+            for (polyline in pathPoints) {
+                distanceInMeters += Utilities.calculateTotalPolylineDistance(polyline).toInt()
+            }
+            val distanceInKms = distanceInMeters / 1000
+            val timeInHours = currentTimeInMillis / 1000 / 60 / 60
+            //calculating average speed in the session using totalDistance and time taken
+            val averageSpeed = round(((distanceInKms / timeInHours) * 10).toDouble()) / 10f
+
+            //calculating calories burned
+            val caloriesBurned = (distanceInKms * userWeight).toInt()
+
+            //creating session object to save in database
+            val session = Session(
+                bitmap,
+                distanceInMeters,
+                averageSpeed.toFloat(),
+                caloriesBurned,
+                currentTimeInMillis,
+                Calendar.getInstance().timeInMillis
+            )
+        }
+    }
 
     override fun onStart() {
         super.onStart()
