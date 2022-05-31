@@ -13,6 +13,6 @@ interface SessionDAO {
     @Delete
     suspend fun deleteSession(session: Session)
 
-    @Query("SELECT * FROM run_table ORDER BY timestamp DESC")
+    @Query("SELECT * FROM session_table ORDER BY timestamp DESC")
     fun getAllSessionsOrderByDate(): LiveData<List<Session>>
 }

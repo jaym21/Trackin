@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "run_table")
+@Entity(tableName = "session_table")
 data class Session (
     var sessionImage: Bitmap? = null,
     var distanceInMeters: Int = 0,

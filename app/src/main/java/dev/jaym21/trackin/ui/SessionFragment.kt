@@ -15,8 +15,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentSessionBinding
 import dev.jaym21.trackin.model.Session
@@ -28,6 +28,7 @@ import dev.jaym21.trackin.viewmodel.MainViewModel
 import java.util.*
 import kotlin.math.round
 
+@AndroidEntryPoint
 class SessionFragment : Fragment() {
 
     private var _binding: FragmentSessionBinding? = null
@@ -72,6 +73,11 @@ class SessionFragment : Fragment() {
             if (currentTimeInMillis > 0L) {
                 showCancelSessionDialog()
             }
+        }
+
+        binding.ivStopSession.setOnClickListener {
+            zoomOutToWholeTrack()
+            endSessionAndSaveToDatabase()
         }
 
         TrackingService.isTracking.observe(viewLifecycleOwner) {
@@ -125,7 +131,7 @@ class SessionFragment : Fragment() {
         builder.setCanceledOnTouchOutside(false)
 
         yesButton.setOnClickListener {
-            cancelSession()
+            endSession()
             Snackbar.make(binding.root, "Session has been cancelled!", Snackbar.LENGTH_SHORT).show()
             builder.dismiss()
         }
@@ -135,8 +141,8 @@ class SessionFragment : Fragment() {
         builder.show()
     }
 
-    //function to cancel the session and not save the session data to database
-    private fun cancelSession() {
+    //function to end the session and not save the session data to database
+    private fun endSession() {
         commandToService(Constants.ACTION_STOP)
         findNavController().popBackStack()
     }
@@ -202,8 +208,8 @@ class SessionFragment : Fragment() {
             for (polyline in pathPoints) {
                 distanceInMeters += Utilities.calculateTotalPolylineDistance(polyline).toInt()
             }
-            val distanceInKms = distanceInMeters / 1000
-            val timeInHours = currentTimeInMillis / 1000 / 60 / 60
+            val distanceInKms = distanceInMeters / 1000f
+            val timeInHours = currentTimeInMillis / 1000f / 60 / 60
             //calculating average speed in the session using totalDistance and time taken
             val averageSpeed = round(((distanceInKms / timeInHours) * 10).toDouble()) / 10f
 
@@ -219,6 +225,11 @@ class SessionFragment : Fragment() {
                 currentTimeInMillis,
                 Calendar.getInstance().timeInMillis
             )
+
+            mainViewModel.addRun(session)
+            Snackbar.make(binding.root, "Session has ended and data has been saved!", Snackbar.LENGTH_SHORT).show()
+            endSession()
+            findNavController().popBackStack()
         }
     }
 
