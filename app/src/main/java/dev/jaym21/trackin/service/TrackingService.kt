@@ -20,6 +20,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
+import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
@@ -28,10 +29,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
+import javax.inject.Inject
 
 typealias Polyline = MutableList<LatLng>
 typealias Polylines = MutableList<Polyline>
 
+@AndroidEntryPoint
 class TrackingService: LifecycleService() {
 
     private val PERMISSIONS_BELOW_Q = arrayOf(
@@ -50,7 +53,10 @@ class TrackingService: LifecycleService() {
     private var lapTime = 0L
     private var timeStarted = 0L
     private var lastSecondTimeStamp = 0L
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    @Inject
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    @Inject
+    lateinit var baseNotificationBuilder: NotificationCompat.Builder
 
 
     companion object {
@@ -63,7 +69,6 @@ class TrackingService: LifecycleService() {
         super.onCreate()
 
         initValues()
-        fusedLocationProviderClient = FusedLocationProviderClient(this)
 
         //getting current isTracking state and updating the user's location update request
         isTracking.observe(this, Observer {
@@ -108,26 +113,7 @@ class TrackingService: LifecycleService() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(notificationManager)
 
-        val notificationClickIntent = PendingIntent.getActivity(
-            this,
-            0,
-            Intent(this, MainActivity::class.java).also {
-                it.action = Constants.ACTION_SHOW_SESSION_FRAGMENT
-            },
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-
-        //TODO: change to app icon
-        val notificationBuilder = NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Trackin")
-            .setContentText("00:00:00")
-            .setContentIntent(notificationClickIntent)
-            .setAutoCancel(false)
-            .setOngoing(true)
-
-        startForeground(Constants.NOTIFICATION_ID, notificationBuilder.build())
+        startForeground(Constants.NOTIFICATION_ID, baseNotificationBuilder.build())
     }
 
     private fun startTimer() {
