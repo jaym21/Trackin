@@ -1,5 +1,6 @@
 package dev.jaym21.trackin.ui
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentSessionBinding
 import dev.jaym21.trackin.service.Polyline
@@ -56,7 +59,7 @@ class SessionFragment : Fragment() {
 
         binding.ivCancelSession.setOnClickListener {
             if (currentTimeInMillis > 0L) {
-
+                showCancelSessionDialog()
             }
         }
 
@@ -97,6 +100,27 @@ class SessionFragment : Fragment() {
             it.action = action
             requireContext().startService(it)
         }
+    }
+
+    private fun showCancelSessionDialog() {
+        val builder = AlertDialog.Builder(requireContext(), R.style.CancelSessionAlertDialog).create()
+
+        val view = layoutInflater.inflate(R.layout.cancel_session_layout, null)
+        val noButton: MaterialButton = view.findViewById(R.id.tvNoCancelDialog)
+        val yesButton: MaterialButton = view.findViewById(R.id.tvYesCancelDialog)
+
+        builder.setView(view)
+        builder.setCanceledOnTouchOutside(false)
+
+        yesButton.setOnClickListener {
+            cancelSession()
+            Snackbar.make(binding.root, "Session has been cancelled!", Snackbar.LENGTH_SHORT).show()
+            builder.dismiss()
+        }
+        noButton.setOnClickListener {
+            builder.dismiss()
+        }
+        builder.show()
     }
 
     //function to cancel the session and not save the session data to database
