@@ -57,7 +57,7 @@ class TrackingService: LifecycleService() {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-
+    lateinit var currentNotificationBuilder: NotificationCompat.Builder
 
     companion object {
         val sessionTimeInMillis: MutableLiveData<Long> = MutableLiveData()
@@ -67,7 +67,7 @@ class TrackingService: LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
-
+        currentNotificationBuilder = baseNotificationBuilder
         initValues()
 
         //getting current isTracking state and updating the user's location update request
@@ -155,6 +155,24 @@ class TrackingService: LifecycleService() {
         } else {
             //removing request for location update
             fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+        }
+    }
+
+    private fun updateNotificationTrackingState(isTracking: Boolean) {
+        //text to be shown in notification action button according to the current tracking state
+        val actionText = if (isTracking) "Pause" else "Resume"
+
+        //pending intent for the click of action text
+        val actionPendingIntent = if (isTracking) {
+            val pauseIntent = Intent(this, TrackingService::class.java).apply {
+                action = Constants.ACTION_PAUSE
+            }
+            PendingIntent.getService(this, 1, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        } else {
+            val resumeIntent = Intent(this, TrackingService::class.java).apply {
+                action = Constants.ACTION_START_OR_RESUME
+            }
+            PendingIntent.getService(this, 1, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
     }
 
