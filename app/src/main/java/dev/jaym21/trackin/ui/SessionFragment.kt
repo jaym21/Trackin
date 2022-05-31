@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -167,6 +168,25 @@ class SessionFragment : Fragment() {
             ))
         }
     }
+
+    //zoom out to capture the whole track of session for the session track bitmap
+    private fun zoomOutToWholeTrack() {
+        val bounds = LatLngBounds.builder()
+        for (polyline in pathPoints) {
+            for (position in polyline) {
+                bounds.include(position)
+            }
+        }
+
+        //moving the camera to the created bounds
+        map?.moveCamera(CameraUpdateFactory.newLatLngBounds(
+            bounds.build(),
+            binding.mapView.width,
+            binding.mapView.height,
+            (binding.mapView.height * 0.05f).toInt()
+        ))
+    }
+
 
     override fun onStart() {
         super.onStart()
