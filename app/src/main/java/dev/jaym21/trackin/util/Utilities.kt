@@ -1,5 +1,7 @@
 package dev.jaym21.trackin.util
 
+import android.location.Location
+import dev.jaym21.trackin.service.Polyline
 import java.util.concurrent.TimeUnit
 
 object Utilities {
@@ -26,5 +28,25 @@ object Utilities {
                 "${if (minutes < 10) "0" else ""}$minutes:" +
                 "${if (seconds < 10) "0" else ""}$seconds:" +
                 "${if (millis < 10) "0" else ""}$millis"
+    }
+
+    fun calculateTotalPolylineDistance(polyline: Polyline): Float {
+        var totalDistance = 0f
+
+        for (i in 0..polyline.size - 2) {
+            val position1 = polyline[i]
+            val position2 = polyline[i + 1]
+
+            val result = FloatArray(1)
+            Location.distanceBetween(
+                position1.latitude,
+                position1.longitude,
+                position2.latitude,
+                position2.longitude,
+                result
+            )
+            totalDistance += result[0]
+        }
+        return totalDistance
     }
 }
