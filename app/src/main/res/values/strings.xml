@@ -5,4 +5,5 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="your_sessions">Your Sessions</string>
+    <string name="all_sessions">All Sessions</string>
 </resources>

@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_sessionFragment"
             app:destination="@id/sessionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allSessionsFragment"
+            app:destination="@id/allSessionsFragment" />
     </fragment>
 
     <fragment
@@ -24,5 +27,10 @@
         android:name="dev.jaym21.trackin.ui.SessionFragment"
         android:label="fragment_session"
         tools:layout="@layout/fragment_session" />
+    <fragment
+        android:id="@+id/allSessionsFragment"
+        android:name="dev.jaym21.trackin.ui.AllSessionsFragment"
+        android:label="fragment_all_sessions"
+        tools:layout="@layout/fragment_all_sessions" />
 
 </navigation>
