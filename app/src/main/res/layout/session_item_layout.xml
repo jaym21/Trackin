@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clSessionRoot"
     android:background="@color/black_bg"
     android:padding="16dp">
 
@@ -52,9 +53,9 @@
 
     <ImageView
         android:id="@+id/ivForwardArrow"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_arrow_right"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_forward_arrow"
         app:tint="@color/white_alpha_60"
         app:layout_constraintTop_toTopOf="@id/ivSessionImage"
         app:layout_constraintBottom_toBottomOf="@id/ivSessionImage"
