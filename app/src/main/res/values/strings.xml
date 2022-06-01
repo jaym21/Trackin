@@ -4,4 +4,5 @@
     <string name="do_you_want_to_cancel_this_session_the_data_of_this_session_will_be_lost_forever">Do you want to cancel this session, the data of this session will be lost forever?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="your_sessions">Your Sessions</string>
 </resources>
