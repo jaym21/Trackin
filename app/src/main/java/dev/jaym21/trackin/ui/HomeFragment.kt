@@ -30,6 +30,10 @@ class HomeFragment : Fragment() {
         binding.fabNewRun.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_sessionFragment)
         }
+
+        binding.llAllSessions.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_allSessionsFragment)
+        }
     }
 
     override fun onDestroy() {

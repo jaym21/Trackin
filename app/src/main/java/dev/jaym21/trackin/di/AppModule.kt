@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.jaym21.trackin.db.TrackinDatabase
+import dev.jaym21.trackin.repo.SessionRepository
 import dev.jaym21.trackin.util.Constants
 import javax.inject.Singleton
 
@@ -22,6 +23,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDao(database: TrackinDatabase) =
-        database.getSessionDao()
+    fun provideRepository(database: TrackinDatabase): SessionRepository =
+        SessionRepository(database)
 }
