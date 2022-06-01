@@ -45,7 +45,13 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
             val formattedDate = Utilities.convertDateFormat(currentItem.timestamp)
             date.text = formattedDate
 
-            distance.text = "${currentItem.distanceInMeters / 1000L}"
+            val distanceInKm = currentItem.distanceInMeters / 1000L
+
+            if (distanceInKm == 0L) {
+                distance.text = "${currentItem.distanceInMeters} m"
+            } else {
+                distance.text = "$distanceInKm km"
+            }
 
             root.setOnClickListener {
                 listener.onSessionClick(currentItem)
