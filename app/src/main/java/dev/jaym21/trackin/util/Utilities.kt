@@ -2,6 +2,8 @@ package dev.jaym21.trackin.util
 
 import android.location.Location
 import dev.jaym21.trackin.service.Polyline
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 object Utilities {
@@ -48,5 +50,10 @@ object Utilities {
             totalDistance += result[0]
         }
         return totalDistance
+    }
+
+    fun convertDateFormat(timestamp: Long): String {
+        val sdf = SimpleDateFormat("MMM dd,yyyy", Locale.ENGLISH)
+        return sdf.format(timestamp)
     }
 }
