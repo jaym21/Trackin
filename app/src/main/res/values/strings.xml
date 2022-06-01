@@ -6,4 +6,5 @@
     <string name="yes">Yes</string>
     <string name="your_sessions">Your Sessions</string>
     <string name="all_sessions">All Sessions</string>
+    <string name="no_sessions_present">No Sessions Present</string>
 </resources>
