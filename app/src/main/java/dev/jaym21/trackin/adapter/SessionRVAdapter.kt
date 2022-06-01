@@ -42,7 +42,7 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
         holder.apply {
             Glide.with(itemView.context).load(currentItem.sessionImage).into(image)
 
-            val formattedDate = Utilities.convertDateFormat(currentItem.runTimeInMillis)
+            val formattedDate = Utilities.convertDateFormat(currentItem.timestamp)
             date.text = formattedDate
 
             distance.text = "${currentItem.distanceInMeters / 1000L}"
