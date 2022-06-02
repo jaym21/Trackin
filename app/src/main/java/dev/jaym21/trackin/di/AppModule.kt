@@ -1,10 +1,13 @@
 package dev.jaym21.trackin.di
 
 import android.app.Application
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.jaym21.trackin.db.TrackinDatabase
 import dev.jaym21.trackin.repo.SessionRepository
@@ -25,4 +28,9 @@ object AppModule {
     @Singleton
     fun provideRepository(database: TrackinDatabase): SessionRepository =
         SessionRepository(database)
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(@ApplicationContext application: Context) =
+        application.getSharedPreferences(Constants.SHARED_PREFERENCES_TRACKIN, MODE_PRIVATE)
 }
