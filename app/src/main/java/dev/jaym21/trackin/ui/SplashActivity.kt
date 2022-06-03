@@ -3,6 +3,7 @@ package dev.jaym21.trackin.ui
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -19,6 +20,7 @@ import dev.jaym21.trackin.R
 import dev.jaym21.trackin.util.Constants
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import javax.inject.Inject
 
 class SplashActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
 
@@ -31,15 +33,22 @@ class SplashActivity: AppCompatActivity(), EasyPermissions.PermissionCallbacks {
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_BACKGROUND_LOCATION,
     )
-
+    @set:Inject
+    var isFirstRun = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (checkIfPermissionsGranted()) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (isFirstRun) {
+                val onboardIntent = Intent(this, OnboardActivity::class.java)
+                startActivity(onboardIntent)
+                finish()
+            } else {
+                val mainIntent = Intent(this, MainActivity::class.java)
+                startActivity(mainIntent)
+                finish()
+            }
         } else {
             requestLocationPermissions()
         }

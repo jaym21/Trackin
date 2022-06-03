@@ -1,5 +1,6 @@
 package dev.jaym21.trackin.ui
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,27 +18,36 @@ class OnboardActivity : AppCompatActivity() {
         get() = _binding!!
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+    @set:Inject
+    var isFirstRun = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.ivSubmit.setOnClickListener {
-            if (binding.etUserName.text.toString().isNotEmpty()) {
-                if (binding.etUserWeight.text.toString().isNotEmpty()) {
+        if (!isFirstRun) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        } else {
+            binding.ivSubmit.setOnClickListener {
+                if (binding.etUserName.text.toString().isNotEmpty()) {
+                    if (binding.etUserWeight.text.toString().isNotEmpty()) {
 
-                    sharedPreferences.edit().putString(Constants.USER_NAME, binding.etUserName.text.toString())
-                        .putFloat(Constants.USER_WEIGHT, binding.etUserWeight.text.toString().toFloat())
-                        .putBoolean(Constants.IS_FIRST_RUN, false)
-                        .apply()
+                        sharedPreferences.edit().putString(Constants.USER_NAME, binding.etUserName.text.toString())
+                            .putFloat(Constants.USER_WEIGHT, binding.etUserWeight.text.toString().toFloat())
+                            .putBoolean(Constants.IS_FIRST_RUN, false)
+                            .apply()
 
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
 
+                    } else {
+                        Snackbar.make(binding.root, "Your weight is needed to proceed", Snackbar.LENGTH_SHORT).show()
+                    }
                 } else {
-                    Snackbar.make(binding.root, "Your weight is needed to proceed", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "Your name is needed to proceed", Snackbar.LENGTH_SHORT).show()
                 }
-            } else {
-                Snackbar.make(binding.root, "Your name is needed to proceed", Snackbar.LENGTH_SHORT).show()
             }
         }
     }

@@ -26,6 +26,7 @@ import dev.jaym21.trackin.util.Constants
 import dev.jaym21.trackin.util.Utilities
 import dev.jaym21.trackin.viewmodel.MainViewModel
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.round
 
 @AndroidEntryPoint
@@ -39,8 +40,8 @@ class SessionFragment : Fragment() {
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
     private var currentTimeInMillis = 0L
-    //TODO: change to dynamic
-    val userWeight = 70
+    @set:Inject
+    var userWeight = 70f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
