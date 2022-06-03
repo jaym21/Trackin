@@ -26,5 +26,5 @@ interface SessionDAO {
     fun getTotalAverageSpeed(): LiveData<Float>
 
     @Query("SELECT SUM(sessionTimeInMillis) FROM session_table")
-    fun getTotalSessionTime(): LiveData<Int>
+    fun getTotalSessionTime(): LiveData<Long>
 }

@@ -15,6 +15,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val sessionRepository: SessionRepository): ViewModel() {
 
     val runsOrderByDate: LiveData<List<Session>> = sessionRepository.getAllSessionsOrderByDate()
+    val totalDistance: LiveData<Int> = sessionRepository.getTotalDistance()
+    val totalCaloriesBurned: LiveData<Int> = sessionRepository.getTotalCaloriesBurned()
+    val totalSessionTime: LiveData<Long> = sessionRepository.getTotalSessionTime()
+    val totalAverageSpeed: LiveData<Float> = sessionRepository.getTotalAverageSpeed()
 
     fun addRun(session: Session) = viewModelScope.launch(Dispatchers.IO) {
         sessionRepository.insertSession(session)
