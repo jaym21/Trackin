@@ -1,6 +1,5 @@
 package dev.jaym21.trackin.repo
 
-import dev.jaym21.trackin.db.SessionDAO
 import dev.jaym21.trackin.db.TrackinDatabase
 import dev.jaym21.trackin.model.Session
 import javax.inject.Inject

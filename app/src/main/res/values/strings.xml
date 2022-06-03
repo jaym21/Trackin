@@ -10,4 +10,13 @@
     <string name="enter_details">Enter Details</string>
     <string name="name">Name</string>
     <string name="weight">Weight</string>
+    <string name="distance">Distance</string>
+    <string name="km">km</string>
+    <string name="kcal">kcal</string>
+    <string name="calories">Calories</string>
+    <string name="time">Time</string>
+    <string name="average_speed">Average Speed</string>
+    <string name="km_h">km/h</string>
+    <string name="recent_sessions">Recent Sessions</string>
+    <string name="overall_stats">Overall Stats</string>
 </resources>

@@ -6,11 +6,14 @@
     <color name="black_bg">#121212</color>
     <color name="black_light">#272727</color>
     <color name="black">#FF000000</color>
-    <color name="red">#ff3838</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alpha_90">#E6FFFFFF</color>
     <color name="white_alpha_85">#DAFFFFFF</color>
     <color name="white_alpha_70">#B3FFFFFF</color>
     <color name="white_alpha_60">#99FFFFFF</color>
     <color name="white_alpha_50">#80FFFFFF</color>
+    <color name="green">#17B978</color>
+    <color name="red">#ff3838</color>
+    <color name="blue">#3b3eff</color>
+    <color name="orange">#FF8C00</color>
 </resources>
