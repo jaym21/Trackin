@@ -12,4 +12,12 @@ class SessionRepository @Inject constructor(private val database: TrackinDatabas
     suspend fun deleteSession(session: Session) = database.getSessionDao().deleteSession(session)
 
     fun getAllSessionsOrderByDate() = database.getSessionDao().getAllSessionsOrderByDate()
+
+    fun getTotalDistance() = database.getSessionDao().getTotalDistance()
+
+    fun getTotalCaloriesBurned() = database.getSessionDao().getTotalCalories()
+
+    fun getTotalAverageSpeed() = database.getSessionDao().getTotalAverageSpeed()
+
+    fun getTotalSessionTime() = database.getSessionDao().getTotalSessionTime()
 }
