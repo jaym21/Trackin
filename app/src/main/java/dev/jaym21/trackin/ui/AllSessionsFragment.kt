@@ -39,7 +39,7 @@ class AllSessionsFragment : Fragment(), ISessionRVAdapter {
 
         setUpRecyclerView()
 
-        mainViewModel.runsOrderByDate.observe(viewLifecycleOwner) {
+        mainViewModel.sessionsOrderByDate.observe(viewLifecycleOwner) {
             if(it.isNullOrEmpty()) {
                 binding.tvNoSessions.visibility = View.VISIBLE
             } else {

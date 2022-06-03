@@ -22,17 +22,17 @@
         tools:text="Hello, XYZ" />
 
     <TextView
-        android:id="@+id/tvOverallStats"
+        android:id="@+id/tvOverallStatsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
         android:fontFamily="@font/avenir_semibold"
         android:text="@string/overall_stats"
         android:textColor="@color/white_alpha_85"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvGreetUser" />
+        app:layout_constraintTop_toBottomOf="@id/tvGreetUser"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp" />
 
     <LinearLayout
         android:id="@+id/llTotalDistance"
@@ -43,7 +43,7 @@
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tvOverallStats"
+        app:layout_constraintTop_toBottomOf="@id/tvOverallStatsText"
         android:paddingHorizontal="20dp"
         android:paddingVertical="16dp"
         android:layout_marginTop="16dp"
@@ -100,7 +100,7 @@
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvOverallStats"
+        app:layout_constraintTop_toBottomOf="@id/tvOverallStatsText"
         app:layout_constraintStart_toEndOf="@id/guideline"
         android:paddingHorizontal="20dp"
         android:paddingVertical="16dp"
@@ -151,7 +151,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llTotalTime"
+        android:id="@+id/llTotalSessionTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_dark_bg"
@@ -172,7 +172,7 @@
             app:tint="@color/green" />
 
         <TextView
-            android:id="@+id/tvTotalTime"
+            android:id="@+id/tvTotalSessionTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
