@@ -16,8 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trackin">
-
-        <activity android:name=".ui.SplashActivity"
+        <activity
+            android:name=".ui.OnboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashScreenTheme">
@@ -27,19 +30,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
 
-        <service android:name=".service.TrackingService"
+        <service
+            android:name=".service.TrackingService"
             android:foregroundServiceType="location" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="${GOOGLE_MAPS_API_KEY}" />
-
     </application>
 
 </manifest>
