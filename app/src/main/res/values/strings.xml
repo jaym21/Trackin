@@ -19,4 +19,6 @@
     <string name="km_h">km/h</string>
     <string name="recent_sessions">Recent Sessions</string>
     <string name="overall_stats">Overall Stats</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_weight">Enter weight</string>
 </resources>

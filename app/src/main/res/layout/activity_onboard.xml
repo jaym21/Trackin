@@ -4,86 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.OnboardActivity"
-    android:background="@color/black_bg">
+    android:background="@color/black_bg"
+    tools:context=".ui.OnboardActivity">
 
     <TextView
         android:id="@+id/tvEnterDetailsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_details"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/avenir_bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="30dp"/>
+        android:fontFamily="@font/avenir_bold"
+        android:text="@string/enter_details"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/llInfo"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvEnterNameText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginHorizontal="40dp">
+        android:fontFamily="@font/avenir_medium"
+        android:text="@string/enter_name"
+        android:textColor="@color/white_alpha_70"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/etUserName"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            style="@style/InputStyle"
-            app:startIconDrawable="@drawable/ic_person"
-            app:startIconTint="@color/blue_200">
+    <EditText
+        android:id="@+id/etUserName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_bg"
+        android:drawableStart="@drawable/ic_person"
+        android:drawableTint="@color/blue_200"
+        android:fontFamily="@font/avenir_medium"
+        android:inputType="numberDecimal"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_alpha_60"
+        android:textCursorDrawable="@null"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="8dp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:fontFamily="@font/avenir_medium"/>
+    <TextView
+        android:id="@+id/tvEnterWeightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_medium"
+        android:text="@string/enter_weight"
+        android:textColor="@color/white_alpha_70"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <EditText
+        android:id="@+id/etUserWeight"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_bg"
+        android:fontFamily="@font/avenir_medium"
+        android:inputType="numberDecimal"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textCursorDrawable="@null"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterWeightText"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="30dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            style="@style/InputStyle"
-            android:layout_marginTop="20dp"
-            app:startIconDrawable="@drawable/ic_person"
-            app:startIconTint="@color/blue_200">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kg"
+        android:textSize="14sp"
+        android:textColor="@color/blue_200"
+        android:fontFamily="@font/avenir_bold"
+        app:layout_constraintTop_toTopOf="@id/etUserWeight"
+        app:layout_constraintBottom_toBottomOf="@id/etUserWeight"
+        app:layout_constraintEnd_toEndOf="@id/etUserWeight"
+        android:layout_marginEnd="10dp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUserWeight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/weight"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:fontFamily="@font/avenir_medium"
-                android:inputType="number"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivSubmit"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_dark_bg"
-        android:src="@drawable/ic_check"
-        app:tint="@color/blue_200"
         android:elevation="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/blue_200" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
