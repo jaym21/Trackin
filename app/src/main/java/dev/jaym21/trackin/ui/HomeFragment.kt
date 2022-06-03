@@ -52,10 +52,10 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
         if (overallStats == null) {
             binding.tvOverallStatsText.visibility = View.GONE
-            binding.tvTotalDistance.visibility = View.GONE
-            binding.tvTotalCaloriesBurned.visibility = View.GONE
-            binding.tvTotalSessionTime.visibility = View.GONE
-            binding.tvTotalDistance.visibility = View.GONE
+            binding.llTotalDistance.visibility = View.GONE
+            binding.llTotalCalories.visibility = View.GONE
+            binding.llTotalSessionTime.visibility = View.GONE
+            binding.llTotalAverageSpeed.visibility = View.GONE
         } else {
             binding.tvTotalDistance.text = overallStats.totalDistance.toString()
             binding.tvTotalCaloriesBurned.text = overallStats.totalCaloriesBurned.toString()
