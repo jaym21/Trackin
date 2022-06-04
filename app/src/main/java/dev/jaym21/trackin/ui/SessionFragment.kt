@@ -106,9 +106,9 @@ class SessionFragment : Fragment() {
         if (isTracking) {
             binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_pause))
             binding.ivStopSession.visibility = View.GONE
-        } else {
-            binding.ivCancelSession.visibility = View.VISIBLE
+        } else if (!isTracking && currentTimeInMillis > 0L) {
             binding.fabPlayPause.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_play))
+            binding.ivCancelSession.visibility = View.VISIBLE
             binding.ivStopSession.visibility = View.VISIBLE
         }
     }
@@ -132,9 +132,9 @@ class SessionFragment : Fragment() {
         builder.setCanceledOnTouchOutside(false)
 
         yesButton.setOnClickListener {
-            endSession()
             Snackbar.make(binding.root, "Session has been cancelled!", Snackbar.LENGTH_SHORT).show()
             builder.dismiss()
+            endSession()
         }
         noButton.setOnClickListener {
             builder.dismiss()
@@ -230,7 +230,6 @@ class SessionFragment : Fragment() {
             mainViewModel.addRun(session)
             Snackbar.make(binding.root, "Session has ended and data has been saved!", Snackbar.LENGTH_SHORT).show()
             endSession()
-            findNavController().popBackStack()
         }
     }
 

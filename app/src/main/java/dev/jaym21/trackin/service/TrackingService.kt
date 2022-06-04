@@ -10,7 +10,6 @@ import android.content.Intent
 import android.location.Location
 import android.os.Build
 import android.os.Looper
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
@@ -22,7 +21,6 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
-import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
 import dev.jaym21.trackin.util.Utilities
 import kotlinx.coroutines.CoroutineScope
@@ -227,7 +225,6 @@ class TrackingService: LifecycleService() {
                 result.locations.let { locations ->
                     for (location in locations) {
                         addPathPoint(location)
-                        Log.d("TAGYOYO", "onLocationResult:latitude ${location.latitude} longitude ${location.longitude}")
                     }
                 }
             }
