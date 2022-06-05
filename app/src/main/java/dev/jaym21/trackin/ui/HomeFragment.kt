@@ -16,6 +16,7 @@ import dev.jaym21.trackin.databinding.FragmentHomeBinding
 import dev.jaym21.trackin.model.Session
 import dev.jaym21.trackin.viewmodel.MainViewModel
 import javax.inject.Inject
+import kotlin.math.round
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ISessionRVAdapter {
@@ -51,7 +52,12 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
             } else {
                 binding.tvOverallStatsText.visibility = View.VISIBLE
                 binding.llTotalDistance.visibility = View.VISIBLE
-                binding.tvTotalDistance.text = it.toString()
+
+                val km = it / 1000f
+                val totalDistance = round(km * 10f) / 10f
+
+                binding.tvTotalDistance.text = totalDistance.toString()
+
             }
         }
 
@@ -94,12 +100,11 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
                 } else {
                     it
                 }
-
                 sessionAdapter.submitList(recentSessions)
             }
         }
 
-        binding.fabNewRun.setOnClickListener {
+        binding.ivNewSession.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_sessionFragment)
         }
 
