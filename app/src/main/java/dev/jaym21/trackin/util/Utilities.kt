@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit
 
 object Utilities {
 
-    fun formatTimestampToTimer(timestamp: Long, includeMillis: Boolean = false): String {
-        var millis = timestamp
+    fun timeToTimerFormat(time: Long, includeMillis: Boolean = false): String {
+        var millis = time
         val hours = TimeUnit.MILLISECONDS.toHours(millis)
         millis -= TimeUnit.HOURS.toMillis(hours)
 
@@ -30,6 +30,22 @@ object Utilities {
                 "${if (minutes < 10) "0" else ""}$minutes:" +
                 "${if (seconds < 10) "0" else ""}$seconds:" +
                 "${if (millis < 10) "0" else ""}$millis"
+    }
+
+    fun timeToOverallStatsFormat(time: Long): String {
+        var millis = time
+        val days = TimeUnit.MILLISECONDS.toDays(millis)
+        millis -= TimeUnit.DAYS.toMillis(days)
+
+        val hours = TimeUnit.MILLISECONDS.toHours(millis)
+        millis -= TimeUnit.HOURS.toMillis(hours)
+
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(millis)
+        millis -= TimeUnit.MINUTES.toMillis(minutes)
+
+        return "${if (days < 10 && days != 0L) "0" else ""}${days}d " +
+                "${if (hours < 10 && hours != 0L) "0" else ""}${hours}h " +
+                "${if (minutes < 10 && minutes != 0L) "0" else ""}${minutes}m"
     }
 
     fun calculateTotalPolylineDistance(polyline: Polyline): Float {

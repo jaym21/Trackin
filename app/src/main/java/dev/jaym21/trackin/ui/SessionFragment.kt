@@ -95,7 +95,7 @@ class SessionFragment : Fragment() {
 
         TrackingService.sessionTimeInMillis.observe(viewLifecycleOwner) {
             currentTimeInMillis = it
-            val timerFormat = Utilities.formatTimestampToTimer(it, true)
+            val timerFormat = Utilities.timeToTimerFormat(it, true)
             binding.tvTimer.text = timerFormat
         }
     }

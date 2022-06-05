@@ -14,6 +14,7 @@ import dev.jaym21.trackin.adapter.ISessionRVAdapter
 import dev.jaym21.trackin.adapter.SessionRVAdapter
 import dev.jaym21.trackin.databinding.FragmentHomeBinding
 import dev.jaym21.trackin.model.Session
+import dev.jaym21.trackin.util.Utilities
 import dev.jaym21.trackin.viewmodel.MainViewModel
 import javax.inject.Inject
 import kotlin.math.round
@@ -75,7 +76,7 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
                 binding.llTotalSessionTime.visibility = View.GONE
             } else {
                 binding.llTotalSessionTime.visibility = View.VISIBLE
-                binding.tvTotalSessionTime.text = it.toString()
+                binding.tvTotalSessionTime.text = Utilities.timeToOverallStatsFormat(it)
             }
         }
 

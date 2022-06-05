@@ -120,7 +120,7 @@ class TrackingService: LifecycleService() {
             if (!isServiceKilled) {
                 //updating the session time in seconds in notification every second
                 val notification = currentNotificationBuilder
-                    .setContentText(Utilities.formatTimestampToTimer(it * 1000L))
+                    .setContentText(Utilities.timeToTimerFormat(it * 1000L))
                 notificationManager.notify(Constants.NOTIFICATION_ID, notification.build())
             }
         }
