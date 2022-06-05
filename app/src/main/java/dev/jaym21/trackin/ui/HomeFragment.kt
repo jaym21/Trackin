@@ -27,10 +27,6 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     @set:Inject
     var userName = ""
     private val sessionAdapter = SessionRVAdapter(this)
-    private var isTotalDistanceNull = false
-    private var isTotalCaloriesBurnedNull = false
-    private var isTotalSessionTimeNull = false
-    private var isTotalAverageSpeedNull = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,19 +44,42 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
         binding.tvGreetUser.text = "Hello, $userName"
 
-        val overallStats = mainViewModel.getOverallStats()
+        mainViewModel.totalDistance.observe(viewLifecycleOwner) {
+            if (it == null) {
+                binding.tvOverallStatsText.visibility = View.GONE
+                binding.llTotalDistance.visibility = View.GONE
+            } else {
+                binding.tvOverallStatsText.visibility = View.VISIBLE
+                binding.llTotalDistance.visibility = View.VISIBLE
+                binding.tvTotalDistance.text = it.toString()
+            }
+        }
 
-        if (overallStats == null) {
-            binding.tvOverallStatsText.visibility = View.GONE
-            binding.llTotalDistance.visibility = View.GONE
-            binding.llTotalCalories.visibility = View.GONE
-            binding.llTotalSessionTime.visibility = View.GONE
-            binding.llTotalAverageSpeed.visibility = View.GONE
-        } else {
-            binding.tvTotalDistance.text = overallStats.totalDistance.toString()
-            binding.tvTotalCaloriesBurned.text = overallStats.totalCaloriesBurned.toString()
-            binding.tvTotalSessionTime.text = overallStats.totalSessionTime.toString()
-            binding.tvTotalDistance.text = overallStats.totalDistance.toString()
+        mainViewModel.totalCaloriesBurned.observe(viewLifecycleOwner) {
+            if (it == null) {
+                binding.llTotalCaloriesBurned.visibility = View.GONE
+            } else {
+                binding.llTotalCaloriesBurned.visibility = View.VISIBLE
+                binding.tvTotalCaloriesBurned.text = it.toString()
+            }
+        }
+
+        mainViewModel.totalSessionTime.observe(viewLifecycleOwner) {
+            if (it == null) {
+                binding.llTotalSessionTime.visibility = View.GONE
+            } else {
+                binding.llTotalSessionTime.visibility = View.VISIBLE
+                binding.tvTotalSessionTime.text = it.toString()
+            }
+        }
+
+        mainViewModel.totalAverageSpeed.observe(viewLifecycleOwner) {
+            if (it == null) {
+                binding.llTotalAverageSpeed.visibility = View.GONE
+            } else {
+                binding.llTotalAverageSpeed.visibility = View.VISIBLE
+                binding.tvTotalAverageSpeed.text = it.toString()
+            }
         }
 
         mainViewModel.sessionsOrderByDate.observe(viewLifecycleOwner) {
@@ -68,6 +87,8 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
                 binding.llRecentSessions.visibility = View.GONE
                 binding.tvRecentSessionsText.visibility = View.GONE
             } else {
+                binding.llRecentSessions.visibility = View.VISIBLE
+                binding.tvRecentSessionsText.visibility = View.VISIBLE
                 val recentSessions = if (it.size > 10) {
                     it.subList(0, 10)
                 } else {

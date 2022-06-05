@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clSessionRoot"
-    android:background="@color/black_bg"
     android:padding="16dp">
 
     <com.google.android.material.imageview.ShapeableImageView

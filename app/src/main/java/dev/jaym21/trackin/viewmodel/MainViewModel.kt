@@ -1,11 +1,9 @@
 package dev.jaym21.trackin.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.jaym21.trackin.model.OverallStats
 import dev.jaym21.trackin.model.Session
 import dev.jaym21.trackin.repo.SessionRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +13,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val sessionRepository: SessionRepository): ViewModel() {
 
+    val totalDistance: LiveData<Int> = sessionRepository.getTotalDistance()
+    val totalCaloriesBurned: LiveData<Int> = sessionRepository.getTotalCaloriesBurned()
+    val totalSessionTime: LiveData<Long> = sessionRepository.getTotalSessionTime()
+    val totalAverageSpeed: LiveData<Float> = sessionRepository.getTotalAverageSpeed()
+
     val sessionsOrderByDate: LiveData<List<Session>> = sessionRepository.getAllSessionsOrderByDate()
 
     fun addRun(session: Session) = viewModelScope.launch(Dispatchers.IO) {
@@ -23,17 +26,5 @@ class MainViewModel @Inject constructor(private val sessionRepository: SessionRe
 
     fun deleteRun(session: Session) = viewModelScope.launch(Dispatchers.IO) {
         sessionRepository.deleteSession(session)
-    }
-
-    fun getOverallStats(): OverallStats? {
-        val totalDistance: LiveData<Int> = sessionRepository.getTotalDistance()
-        val totalCaloriesBurned: LiveData<Int> = sessionRepository.getTotalCaloriesBurned()
-        val totalSessionTime: LiveData<Long> = sessionRepository.getTotalSessionTime()
-        val totalAverageSpeed: LiveData<Float> = sessionRepository.getTotalAverageSpeed()
-
-        if (totalDistance.value == null && totalCaloriesBurned.value == null && totalSessionTime.value == null && totalAverageSpeed.value == null) {
-            return null
-        }
-        return OverallStats(totalDistance.value!!, totalCaloriesBurned.value!!, totalSessionTime.value!!, totalAverageSpeed.value!!)
     }
 }
