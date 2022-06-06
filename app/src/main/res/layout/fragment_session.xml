@@ -29,61 +29,54 @@
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cvBottomPanel"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/black_light"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:padding="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black_light"
-            android:padding="16dp">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlayPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play"
+            app:tint="@color/black_light"
+            app:maxImageSize="32dp"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabPlayPause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_play"
-                app:tint="@color/black_light"
-                app:maxImageSize="32dp"
-                android:scaleType="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00:00"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/avenir_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fabPlayPause"
+            app:layout_constraintTop_toTopOf="@id/fabPlayPause"
+            app:layout_constraintBottom_toBottomOf="@id/fabPlayPause" />
 
-            <TextView
-                android:id="@+id/tvTimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00:00:00"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/avenir_semibold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/fabPlayPause"
-                app:layout_constraintTop_toTopOf="@id/fabPlayPause"
-                app:layout_constraintBottom_toBottomOf="@id/fabPlayPause" />
+        <ImageView
+            android:id="@+id/ivStopSession"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_stop"
+            app:tint="@color/red"
+            app:layout_constraintTop_toTopOf="@id/fabPlayPause"
+            app:layout_constraintBottom_toBottomOf="@id/fabPlayPause"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
-            <ImageView
-                android:id="@+id/ivStopSession"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_stop"
-                app:tint="@color/red"
-                app:layout_constraintTop_toTopOf="@id/fabPlayPause"
-                app:layout_constraintBottom_toBottomOf="@id/fabPlayPause"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"
-                tools:visibility="visible"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

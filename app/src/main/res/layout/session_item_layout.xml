@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/date"
                 android:textSize="12sp"
-                android:textColor="@color/white_alpha_60"/>
+                android:textColor="@color/white_alpha_50"/>
 
         </LinearLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/distance"
                 android:textSize="12sp"
-                android:textColor="@color/white_alpha_60"/>
+                android:textColor="@color/white_alpha_50"/>
 
         </LinearLayout>
 
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/speed"
                 android:textSize="12sp"
-                android:textColor="@color/white_alpha_60"/>
+                android:textColor="@color/white_alpha_50"/>
 
         </LinearLayout>
 
