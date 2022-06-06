@@ -6,25 +6,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clSessionRoot"
     android:background="@color/black_light"
-    android:padding="16dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="16dp">
 
     <ImageView
         android:id="@+id/ivSessionImage"
-        android:layout_width="80dp"
-        android:layout_height="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@id/ivSessionImage"
-        app:layout_constraintBottom_toBottomOf="@id/ivSessionImage"
-        app:layout_constraintStart_toEndOf="@id/ivSessionImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="10dp">
+        app:layout_constraintTop_toBottomOf="@id/ivSessionImage"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="0dp"

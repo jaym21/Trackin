@@ -14,9 +14,9 @@ import dev.jaym21.trackin.R
 import dev.jaym21.trackin.model.Session
 import dev.jaym21.trackin.util.Utilities
 
-class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Session, SessionRVAdapter.SessionViewHolder>(SessionDiffUtil()) {
+class AllSessionRVAdapter(private val listener: IAllSessionRVAdapter): ListAdapter<Session, AllSessionRVAdapter.AllSessionViewHolder>(SessionRVAdapter.SessionDiffUtil()) {
 
-    class SessionDiffUtil: DiffUtil.ItemCallback<Session>() {
+    class AllSessionDiffUtil: DiffUtil.ItemCallback<Session>() {
         override fun areItemsTheSame(oldItem: Session, newItem: Session): Boolean {
             return oldItem.id == newItem.id
         }
@@ -26,7 +26,7 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
         }
     }
 
-    inner class SessionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class AllSessionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val root: ConstraintLayout = itemView.findViewById(R.id.clSessionRoot)
         val image: ImageView = itemView.findViewById(R.id.ivSessionImage)
         val date: TextView = itemView.findViewById(R.id.tvSessionDate)
@@ -34,11 +34,11 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
         val speed: TextView = itemView.findViewById(R.id.tvSessionAverageSpeed)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
-        return SessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.session_item_layout, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllSessionViewHolder {
+        return AllSessionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.all_session_item_layout, parent, false))
     }
 
-    override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AllSessionViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.apply {
             Glide.with(itemView.context).load(currentItem.sessionImage).into(image)
@@ -63,6 +63,6 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
     }
 }
 
-interface ISessionRVAdapter {
+interface IAllSessionRVAdapter {
     fun onSessionClick(session: Session)
 }

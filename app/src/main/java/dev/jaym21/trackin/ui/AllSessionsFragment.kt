@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
+import dev.jaym21.trackin.adapter.AllSessionRVAdapter
+import dev.jaym21.trackin.adapter.IAllSessionRVAdapter
 import dev.jaym21.trackin.adapter.ISessionRVAdapter
 import dev.jaym21.trackin.adapter.SessionRVAdapter
 import dev.jaym21.trackin.databinding.FragmentAllSessionsBinding
@@ -17,13 +19,13 @@ import dev.jaym21.trackin.model.Session
 import dev.jaym21.trackin.viewmodel.MainViewModel
 
 @AndroidEntryPoint
-class AllSessionsFragment : Fragment(), ISessionRVAdapter {
+class AllSessionsFragment : Fragment(), IAllSessionRVAdapter {
 
     private var _binding: FragmentAllSessionsBinding? = null
     private val binding: FragmentAllSessionsBinding
         get() = _binding!!
     private val mainViewModel: MainViewModel by viewModels()
-    private val sessionAdapter = SessionRVAdapter(this)
+    private val sessionAdapter = AllSessionRVAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

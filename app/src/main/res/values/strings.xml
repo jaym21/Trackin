@@ -21,4 +21,6 @@
     <string name="overall_stats">Overall Stats</string>
     <string name="enter_name">Enter name</string>
     <string name="enter_weight">Enter weight</string>
+    <string name="date">Date</string>
+    <string name="speed">Speed</string>
 </resources>

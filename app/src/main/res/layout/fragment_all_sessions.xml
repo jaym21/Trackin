@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.AllSessionsFragment"
-    android:background="@color/black_bg">
+    android:background="@color/black">
 
     <ImageView
         android:id="@+id/ivBack"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@drawable/button_dark_bg"
+        android:background="@color/black_light"
         android:src="@drawable/ic_back_arrow"
         app:tint="@color/blue_200"
         android:elevation="8dp"

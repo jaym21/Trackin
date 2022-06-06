@@ -122,7 +122,7 @@ class SessionFragment : Fragment() {
     }
 
     private fun showCancelSessionDialog() {
-        val builder = AlertDialog.Builder(requireContext(), R.style.CancelSessionAlertDialog).create()
+        val builder = AlertDialog.Builder(requireContext()).create()
 
         val view = layoutInflater.inflate(R.layout.cancel_session_layout, null)
         val noButton: TextView = view.findViewById(R.id.tvNoCancelDialog)
