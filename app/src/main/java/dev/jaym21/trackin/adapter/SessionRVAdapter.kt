@@ -32,6 +32,7 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
         val date: TextView = itemView.findViewById(R.id.tvSessionDate)
         val distance: TextView = itemView.findViewById(R.id.tvSessionDistance)
         val speed: TextView = itemView.findViewById(R.id.tvSessionAverageSpeed)
+        val divider: View = itemView.findViewById(R.id.divider)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
@@ -58,6 +59,10 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
 
             root.setOnClickListener {
                 listener.onSessionClick(currentItem)
+            }
+
+            if (position == currentList.size - 1) {
+                divider.visibility = View.INVISIBLE
             }
         }
     }
