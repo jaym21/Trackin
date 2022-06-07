@@ -54,7 +54,7 @@ class SessionRVAdapter(private val listener: ISessionRVAdapter): ListAdapter<Ses
                 distance.text = "$distanceInKm km"
             }
 
-            speed.text = currentItem.avgSpeedInKMH.toString()
+            speed.text = "${currentItem.avgSpeedInKMH} km/h"
 
             root.setOnClickListener {
                 listener.onSessionClick(currentItem)
