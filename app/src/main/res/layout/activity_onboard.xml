@@ -42,11 +42,13 @@
         android:drawableTint="@color/blue_200"
         android:fontFamily="@font/avenir_medium"
         android:inputType="textPersonName"
-        android:padding="5dp"
+        android:maxLength="12"
+        android:padding="8dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white_alpha_60"
         android:textCursorDrawable="@null"
         android:textSize="15sp"
+        android:elevation="8dp"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="8dp"/>
@@ -72,10 +74,12 @@
         android:background="@drawable/edittext_bg"
         android:fontFamily="@font/avenir_medium"
         android:inputType="numberDecimal"
+        android:maxLength="4"
         android:padding="5dp"
         android:textColor="@color/white"
         android:textCursorDrawable="@null"
         android:textSize="15sp"
+        android:elevation="8dp"
         app:layout_constraintTop_toBottomOf="@id/tvEnterWeightText"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="30dp"/>
@@ -91,7 +95,6 @@
         app:layout_constraintBottom_toBottomOf="@id/etUserWeight"
         app:layout_constraintEnd_toEndOf="@id/etUserWeight"
         android:layout_marginEnd="10dp"/>
-
 
 
     <ImageView
