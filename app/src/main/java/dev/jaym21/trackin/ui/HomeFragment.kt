@@ -122,7 +122,10 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     }
 
     override fun onSessionClick(session: Session) {
-
+        val bundle = Bundle().apply {
+            putParcelable("session", session)
+        }
+        findNavController().navigate(R.id.action_homeFragment_to_sessionDetailsFragment, bundle)
     }
 
     override fun onDestroy() {
