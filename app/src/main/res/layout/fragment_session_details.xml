@@ -28,7 +28,7 @@
         android:layout_height="350dp"
         android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@id/ivBack"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="20dp" />
 
     <LinearLayout
         android:id="@+id/llSessionTime"

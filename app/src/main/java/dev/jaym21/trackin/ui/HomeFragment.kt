@@ -50,9 +50,11 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         mainViewModel.totalDistance.observe(viewLifecycleOwner) {
             if (it == null) {
                 binding.tvOverallStatsText.visibility = View.GONE
+                binding.llMoreStats.visibility = View.GONE
                 binding.llTotalDistance.visibility = View.GONE
             } else {
                 binding.tvOverallStatsText.visibility = View.VISIBLE
+                binding.llMoreStats.visibility = View.VISIBLE
                 binding.llTotalDistance.visibility = View.VISIBLE
 
                 val km = it / 1000f
@@ -104,6 +106,10 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
                 }
                 sessionAdapter.submitList(recentSessions)
             }
+        }
+
+        binding.llMoreStats.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment)
         }
 
         binding.ivNewSession.setOnClickListener {

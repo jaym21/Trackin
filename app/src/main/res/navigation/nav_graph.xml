@@ -35,6 +35,9 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
     </fragment>
 
     <fragment
@@ -68,5 +71,10 @@
             app:argType="dev.jaym21.trackin.model.Session"/>
 
     </fragment>
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="dev.jaym21.trackin.ui.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
 
 </navigation>
