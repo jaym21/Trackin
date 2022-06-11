@@ -14,6 +14,7 @@ import dev.jaym21.trackin.adapter.ISessionRVAdapter
 import dev.jaym21.trackin.adapter.SessionRVAdapter
 import dev.jaym21.trackin.databinding.FragmentHomeBinding
 import dev.jaym21.trackin.model.Session
+import dev.jaym21.trackin.util.Constants
 import dev.jaym21.trackin.util.Utilities
 import dev.jaym21.trackin.viewmodel.MainViewModel
 import javax.inject.Inject
@@ -123,7 +124,7 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
     override fun onSessionClick(session: Session) {
         val bundle = Bundle().apply {
-            putParcelable("session", session)
+            putParcelable(Constants.KEY_SESSION, session)
         }
         findNavController().navigate(R.id.action_homeFragment_to_sessionDetailsFragment, bundle)
     }

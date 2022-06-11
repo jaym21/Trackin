@@ -16,6 +16,7 @@ import dev.jaym21.trackin.adapter.ISessionRVAdapter
 import dev.jaym21.trackin.adapter.SessionRVAdapter
 import dev.jaym21.trackin.databinding.FragmentAllSessionsBinding
 import dev.jaym21.trackin.model.Session
+import dev.jaym21.trackin.util.Constants
 import dev.jaym21.trackin.viewmodel.MainViewModel
 
 @AndroidEntryPoint
@@ -64,7 +65,7 @@ class AllSessionsFragment : Fragment(), IAllSessionRVAdapter {
 
     override fun onSessionClick(session: Session) {
         val bundle = Bundle().apply {
-            putParcelable("session", session)
+            putParcelable(Constants.KEY_SESSION, session)
         }
         findNavController().navigate(R.id.action_allSessionsFragment_to_sessionDetailsFragment, bundle)
     }
