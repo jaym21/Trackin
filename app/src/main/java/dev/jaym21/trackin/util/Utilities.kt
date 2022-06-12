@@ -1,6 +1,7 @@
 package dev.jaym21.trackin.util
 
 import android.location.Location
+import android.util.Log
 import dev.jaym21.trackin.service.Polyline
 import java.text.SimpleDateFormat
 import java.util.*
@@ -70,6 +71,11 @@ object Utilities {
 
     fun convertDateFormat(timestamp: Long): String {
         val sdf = SimpleDateFormat("MMM dd,yyyy", Locale.ENGLISH)
+        return sdf.format(timestamp)
+    }
+
+    fun getMonthFullName(timestamp: Long): String {
+        val sdf = SimpleDateFormat("MMMM", Locale.ENGLISH)
         return sdf.format(timestamp)
     }
 }

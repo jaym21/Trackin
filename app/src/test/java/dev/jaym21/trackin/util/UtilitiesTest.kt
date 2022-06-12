@@ -19,4 +19,16 @@ class UtilitiesTest {
         val formattedTime = Utilities.timeToOverallStatsFormat(5766)
         assertThat(formattedTime).isNotNull()
     }
+
+    @Test
+    fun `Convert timestamp to date`() {
+        val date = Utilities.convertDateFormat(1654498274676)
+        assertThat(date).isNotNull()
+    }
+
+    @Test
+    fun `Convert timestamp to get month full name`() {
+        val month = Utilities.getMonthFullName(1654498274676)
+        assertThat(month).isNotNull()
+    }
 }
