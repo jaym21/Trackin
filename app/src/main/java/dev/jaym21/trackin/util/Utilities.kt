@@ -74,6 +74,11 @@ object Utilities {
         return sdf.format(timestamp)
     }
 
+    fun getDateFromTimestamp(timestamp: Long): String {
+        val sdf = SimpleDateFormat("dd", Locale.ENGLISH)
+        return sdf.format(timestamp)
+    }
+
     fun getMonthFullName(timestamp: Long): String {
         val sdf = SimpleDateFormat("MMMM", Locale.ENGLISH)
         return sdf.format(timestamp)

@@ -31,4 +31,10 @@ class UtilitiesTest {
         val month = Utilities.getMonthFullName(1654498274676)
         assertThat(month).isNotNull()
     }
+
+    @Test
+    fun `Convert timestamp to get date`() {
+        val date = Utilities.getDateFromTimestamp(1654498274676)
+        assertThat(date).isNotNull()
+    }
 }
