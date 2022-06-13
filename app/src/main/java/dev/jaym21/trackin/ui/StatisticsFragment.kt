@@ -42,17 +42,40 @@ class StatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         statisticsViewModel.sessionsOrderByDate.observe(viewLifecycleOwner) {
-            val sessions = if (it.size > 6) {
-                it.subList(0, 6)
-            } else {
-                it
-            }
-            val revSessions = sessions.reversed()
 
-            setUpDistanceLineChart(revSessions)
-            setUpCaloriesLineChart(revSessions)
-            setUpTimeBarChart(revSessions)
-            setUpSpeedBarChart(revSessions)
+            if (it.isNullOrEmpty()) {
+                binding.tvNoStatsAvailable.visibility = View.VISIBLE
+                binding.tvDistanceText.visibility = View.GONE
+                binding.distanceLineChart.visibility = View.GONE
+                binding.tvCaloriesText.visibility = View.GONE
+                binding.caloriesLineChart.visibility = View.GONE
+                binding.tvTimeText.visibility = View.GONE
+                binding.timeBarChart.visibility = View.GONE
+                binding.tvSpeedText.visibility = View.GONE
+                binding.speedBarChart.visibility = View.GONE
+            } else {
+                binding.tvNoStatsAvailable.visibility = View.GONE
+                binding.tvDistanceText.visibility = View.VISIBLE
+                binding.distanceLineChart.visibility = View.VISIBLE
+                binding.tvCaloriesText.visibility = View.VISIBLE
+                binding.caloriesLineChart.visibility = View.VISIBLE
+                binding.tvTimeText.visibility = View.VISIBLE
+                binding.timeBarChart.visibility = View.VISIBLE
+                binding.tvSpeedText.visibility = View.VISIBLE
+                binding.speedBarChart.visibility = View.VISIBLE
+
+                val sessions = if (it.size > 6) {
+                    it.subList(0, 6)
+                } else {
+                    it
+                }
+                val revSessions = sessions.reversed()
+
+                setUpDistanceLineChart(revSessions)
+                setUpCaloriesLineChart(revSessions)
+                setUpTimeBarChart(revSessions)
+                setUpSpeedBarChart(revSessions)
+            }
         }
 
         binding.ivBack.setOnClickListener {
