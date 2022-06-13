@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/drawable/button_dark_bg.xml" value="0.3828125" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/drawable/cancel_session_dialog_bg.xml" value="0.3828125" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/drawable/chart_fade_green.xml" value="0.3828125" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/drawable/chart_fade_orange.xml" value="0.3828125" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/drawable/chart_fade_red.xml" value="0.3828125" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/drawable/edittext_bg.xml" value="0.3828125" />
@@ -14,7 +15,9 @@
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/activity_onboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/all_session_item_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/calories_marker_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/cancel_session_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/distance_marker_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_all_sessions.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_onboard.xml" value="0.36666666666666664" />
@@ -25,6 +28,7 @@
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_statistics.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/permission_settings_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/session_item_layout.xml" value="0.33" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/time_marker_view.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
