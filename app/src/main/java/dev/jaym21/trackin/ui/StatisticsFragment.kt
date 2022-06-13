@@ -9,9 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentStatisticsBinding
@@ -130,8 +132,10 @@ class StatisticsFragment : Fragment() {
         lineDataSet.lineWidth = 2f
         lineDataSet.setDrawFilled(true)
         lineDataSet.setDrawHighlightIndicators(false)
-        lineDataSet.setDrawCircleHole(false)
-        lineDataSet.setDrawCircles(false)
+        lineDataSet.setDrawCircleHole(true)
+        lineDataSet.setDrawCircles(true)
+        lineDataSet.setCircleColor(ContextCompat.getColor(binding.root.context, R.color.red))
+        lineDataSet.circleHoleColor = ContextCompat.getColor(binding.root.context, R.color.white)
         lineDataSet.setDrawValues(false)
         lineDataSet.setDrawIcons(false)
         lineDataSet.disableDashedLine()
@@ -170,8 +174,10 @@ class StatisticsFragment : Fragment() {
         lineDataSet.lineWidth = 2f
         lineDataSet.setDrawFilled(true)
         lineDataSet.setDrawHighlightIndicators(false)
-        lineDataSet.setDrawCircleHole(false)
-        lineDataSet.setDrawCircles(false)
+        lineDataSet.setDrawCircleHole(true)
+        lineDataSet.setDrawCircles(true)
+        lineDataSet.setCircleColor(ContextCompat.getColor(binding.root.context, R.color.orange))
+        lineDataSet.circleHoleColor = ContextCompat.getColor(binding.root.context, R.color.white)
         lineDataSet.setDrawValues(false)
         lineDataSet.setDrawIcons(false)
         lineDataSet.disableDashedLine()
@@ -210,8 +216,10 @@ class StatisticsFragment : Fragment() {
         lineDataSet.lineWidth = 2f
         lineDataSet.setDrawFilled(true)
         lineDataSet.setDrawHighlightIndicators(false)
-        lineDataSet.setDrawCircleHole(false)
-        lineDataSet.setDrawCircles(false)
+        lineDataSet.setDrawCircleHole(true)
+        lineDataSet.setDrawCircles(true)
+        lineDataSet.setCircleColor(ContextCompat.getColor(binding.root.context, R.color.green))
+        lineDataSet.circleHoleColor = ContextCompat.getColor(binding.root.context, R.color.white)
         lineDataSet.setDrawValues(false)
         lineDataSet.setDrawIcons(false)
         lineDataSet.disableDashedLine()
