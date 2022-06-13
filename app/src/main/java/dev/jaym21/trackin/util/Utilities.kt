@@ -33,6 +33,22 @@ object Utilities {
                 "${if (millis < 10) "0" else ""}$millis"
     }
 
+    fun timeToTimerFormatWithLabel(time: Long): String {
+        var millis = time
+        val hours = TimeUnit.MILLISECONDS.toHours(millis)
+        millis -= TimeUnit.HOURS.toMillis(hours)
+
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(millis)
+        millis -= TimeUnit.MINUTES.toMillis(minutes)
+
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(millis)
+
+
+        return "${if (hours < 10 && hours != 0L) "0" else ""}${hours}h " +
+                "${if (minutes < 10 && minutes != 0L) "0" else ""}${minutes}m " +
+                "${if (seconds < 10 && seconds != 0L) "0" else ""}${seconds}s "
+    }
+
     fun timeToOverallStatsFormat(time: Long): String {
         var millis = time
         val days = TimeUnit.MILLISECONDS.toDays(millis)
