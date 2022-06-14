@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.onboard.UserDetailsFragment"
+    android:background="@color/black">
+
+    <TextView
+        android:id="@+id/tvEnterDetailsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/avenir_bold"
+        android:text="@string/enter_details"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEnterNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_medium"
+        android:text="@string/enter_name"
+        android:textColor="@color/white_alpha_70"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/etUserName"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etUserName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_bg"
+        android:drawableStart="@drawable/ic_person"
+        android:drawableTint="@color/blue_200"
+        android:fontFamily="@font/avenir_medium"
+        android:inputType="textPersonName"
+        android:maxLength="12"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white_alpha_60"
+        android:textCursorDrawable="@null"
+        android:textSize="15sp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvEnterWeightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/avenir_medium"
+        android:text="@string/enter_weight"
+        android:textColor="@color/white_alpha_70"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:id="@+id/etUserWeight"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/edittext_bg"
+        android:fontFamily="@font/avenir_medium"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:textCursorDrawable="@null"
+        android:textSize="15sp"
+        android:elevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEnterWeightText"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/kg"
+        android:textSize="14sp"
+        android:elevation="10dp"
+        android:textColor="@color/blue_200"
+        android:fontFamily="@font/avenir_bold"
+        app:layout_constraintTop_toTopOf="@id/etUserWeight"
+        app:layout_constraintBottom_toBottomOf="@id/etUserWeight"
+        app:layout_constraintEnd_toEndOf="@id/etUserWeight"
+        android:layout_marginEnd="10dp"/>
+
+    <ImageView
+        android:id="@+id/ivSubmit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/black_light"
+        android:elevation="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/blue_200" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

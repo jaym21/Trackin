@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Trackin">
         <activity
-            android:name=".ui.OnboardActivity"
+            android:name=".ui.onboard.OnboardActivity"
             android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"

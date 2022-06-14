@@ -1,4 +1,4 @@
-package dev.jaym21.trackin.ui
+package dev.jaym21.trackin.ui.onboard
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.databinding.ActivityOnboardBinding
+import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
 import javax.inject.Inject
 
