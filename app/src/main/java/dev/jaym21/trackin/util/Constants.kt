@@ -15,6 +15,7 @@ object Constants {
     const val IS_FIRST_RUN = "is_first_run"
     const val USER_NAME = "user_name"
     const val USER_WEIGHT = "user_weight"
+    const val DISTANCE_GOAL = "distance_goal"
     const val KEY_SESSION = "key_session"
 
     //service
