@@ -17,8 +17,6 @@ class OnboardActivity : AppCompatActivity() {
     private var _binding: ActivityOnboardBinding? = null
     private val binding: ActivityOnboardBinding
         get() = _binding!!
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
     @set:Inject
     var isFirstRun = true
 
@@ -30,26 +28,6 @@ class OnboardActivity : AppCompatActivity() {
         if (!isFirstRun) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-        } else {
-            binding.ivSubmit.setOnClickListener {
-                if (binding.etUserName.text.toString().isNotEmpty()) {
-                    if (binding.etUserWeight.text.toString().isNotEmpty()) {
-
-                        sharedPreferences.edit().putString(Constants.USER_NAME, binding.etUserName.text.toString())
-                            .putFloat(Constants.USER_WEIGHT, binding.etUserWeight.text.toString().toFloat())
-                            .putBoolean(Constants.IS_FIRST_RUN, false)
-                            .apply()
-
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-
-                    } else {
-                        Snackbar.make(binding.root, "Your weight is needed to proceed", Snackbar.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Snackbar.make(binding.root, "Your name is needed to proceed", Snackbar.LENGTH_SHORT).show()
-                }
-            }
         }
     }
 
