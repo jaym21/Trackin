@@ -98,16 +98,16 @@
         android:layout_marginEnd="10dp"/>
 
     <ImageView
-        android:id="@+id/ivSubmit"
+        android:id="@+id/ivNext"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@color/black_light"
         android:elevation="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:src="@drawable/ic_check"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:src="@drawable/ic_forward_arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/blue_200" />

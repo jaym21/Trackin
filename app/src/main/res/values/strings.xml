@@ -25,4 +25,6 @@
     <string name="speed">Speed</string>
     <string name="more_stats">More Stats</string>
     <string name="kg">kg</string>
+    <string name="daily_goal">Daily Goal</string>
+    <string name="add_the_distance_goal_you_want_to_complete_daily">Add the distance goal you want to complete daily</string>
 </resources>
