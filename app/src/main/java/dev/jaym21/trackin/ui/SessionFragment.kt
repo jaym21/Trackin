@@ -2,6 +2,7 @@ package dev.jaym21.trackin.ui
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,6 +41,8 @@ class SessionFragment : Fragment() {
     private var isTracking = false
     private var pathPoints = mutableListOf<Polyline>()
     private var currentTimeInMillis = 0L
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
     @set:Inject
     var userWeight = 70f
 
@@ -226,8 +229,13 @@ class SessionFragment : Fragment() {
                 currentTimeInMillis,
                 Calendar.getInstance().timeInMillis
             )
-
             mainViewModel.addRun(session)
+
+            val distanceGoalCompleted = sharedPreferences.getFloat(Constants.DISTANCE_GOAL_COMPLETED, 0F)
+            sharedPreferences.edit()
+                .putFloat(Constants.DISTANCE_GOAL_COMPLETED, distanceGoalCompleted + distanceInKms)
+                .apply()
+
             Snackbar.make(binding.root, "Session has ended and data has been saved!", Snackbar.LENGTH_SHORT).show()
             endSession()
         }
