@@ -1,5 +1,6 @@
 package dev.jaym21.trackin.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -32,12 +33,12 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     private val binding: FragmentHomeBinding
         get() = _binding!!
     private val mainViewModel: MainViewModel by viewModels()
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
     @set:Inject
     var userName = ""
     @set:Inject
-    var distanceGoal: Int = 0
-    @set:Inject
-    var distanceGoalCompleted: Float = 0F
+    var distanceGoal = 0
     private val sessionAdapter = SessionRVAdapter(this)
 
     override fun onCreateView(
@@ -133,8 +134,12 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     }
 
     private fun setUpGoalPieChart() {
+
+        val distanceGoalCompleted = sharedPreferences.getFloat(Constants.DISTANCE_GOAL_COMPLETED, 0F)
+        binding.tvDailyDistanceGoalCompletion.text = "${distanceGoalCompleted}/${distanceGoal} km"
+
         binding.pieChartGoal.isDrawHoleEnabled = true
-        binding.pieChartGoal.holeRadius = 58f
+        binding.pieChartGoal.holeRadius = 65f
         binding.pieChartGoal.setUsePercentValues(true)
         binding.pieChartGoal.setDrawEntryLabels(false)
         binding.pieChartGoal.setDrawCenterText(true)
@@ -154,9 +159,10 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
         val dataSet = PieDataSet(entries, "Distance Goal")
         dataSet.colors = colors
+        dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.transparent)
 
         val data = PieData(dataSet)
-
+        binding.pieChartGoal.legend.isEnabled = false
         binding.pieChartGoal.data = data
         binding.pieChartGoal.invalidate()
     }
