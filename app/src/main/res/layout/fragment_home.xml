@@ -69,8 +69,10 @@
                     android:layout_marginBottom="16dp"/>
                 
                 <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChartGoal"
                     android:layout_width="150dp"
-                    android:layout_height="150dp"/>
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 

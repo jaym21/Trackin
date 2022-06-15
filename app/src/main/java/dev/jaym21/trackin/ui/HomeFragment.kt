@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.adapter.ISessionRVAdapter
@@ -29,6 +34,10 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     private val mainViewModel: MainViewModel by viewModels()
     @set:Inject
     var userName = ""
+    @set:Inject
+    var distanceGoal: Int = 0
+    @set:Inject
+    var distanceGoalCompleted: Float = 0F
     private val sessionAdapter = SessionRVAdapter(this)
 
     override fun onCreateView(
@@ -46,6 +55,8 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         setUpRecyclerView()
 
         binding.tvGreetUser.text = "Hello, $userName"
+
+        setUpGoalPieChart()
 
         mainViewModel.totalDistance.observe(viewLifecycleOwner) {
             if (it == null) {
@@ -119,6 +130,35 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         binding.llAllSessions.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_allSessionsFragment)
         }
+    }
+
+    private fun setUpGoalPieChart() {
+        binding.pieChartGoal.isDrawHoleEnabled = true
+        binding.pieChartGoal.holeRadius = 58f
+        binding.pieChartGoal.setUsePercentValues(true)
+        binding.pieChartGoal.setDrawEntryLabels(false)
+        binding.pieChartGoal.setDrawCenterText(true)
+        binding.pieChartGoal.isRotationEnabled = false
+        binding.pieChartGoal.setTouchEnabled(false)
+        binding.pieChartGoal.highlightValues(null)
+        binding.pieChartGoal.setHoleColor(ContextCompat.getColor(requireContext(), R.color.black))
+        binding.pieChartGoal.animateY(1400, Easing.EaseInOutQuad)
+
+        val entries = ArrayList<PieEntry>()
+        val colors = ArrayList<Int>()
+
+        entries.add(PieEntry(distanceGoalCompleted, "Distance Completed"))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.red))
+        entries.add(PieEntry(distanceGoal - distanceGoalCompleted, "Distance Remaining"))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.red_light))
+
+        val dataSet = PieDataSet(entries, "Distance Goal")
+        dataSet.colors = colors
+
+        val data = PieData(dataSet)
+
+        binding.pieChartGoal.data = data
+        binding.pieChartGoal.invalidate()
     }
 
     private fun setUpRecyclerView() {

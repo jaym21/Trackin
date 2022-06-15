@@ -15,6 +15,7 @@
     <color name="white_alpha_30">#4DFFFFFF</color>
     <color name="green">#17B978</color>
     <color name="red">#ff3838</color>
+    <color name="red_light">#4DFF3838</color>
     <color name="blue">#3b3eff</color>
     <color name="orange">#FF8C00</color>
 </resources>
