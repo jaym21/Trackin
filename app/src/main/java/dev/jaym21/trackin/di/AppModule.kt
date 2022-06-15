@@ -52,6 +52,11 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideDistanceGoalCompleted(sharedPreferences: SharedPreferences) =
+        sharedPreferences.getFloat(Constants.DISTANCE_GOAL_COMPLETED, 0F)
+
+    @Provides
+    @Singleton
     fun provideIsFirstRun(sharedPreferences: SharedPreferences) =
         sharedPreferences.getBoolean(Constants.IS_FIRST_RUN, true)
 }
