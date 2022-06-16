@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:textColor="@color/white"
+    android:textColor="?attr/text_color"
     android:ellipsize="marquee"
     android:singleLine="true"
     android:fontFamily="@font/avenir_medium"

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/black_light"
+        android:background="?attr/bg_color_light"
         android:padding="6dp">
 
         <TextView
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_semibold"
-            android:textColor="@color/white"
+            android:textColor="?attr/text_color"
             android:textSize="14sp"
             tools:text="12 Jun 2021" />
 
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/avenir_semibold"
-            android:textColor="@color/white"
+            android:textColor="?attr/text_color"
             android:textSize="14sp"
             tools:text="3.2 km" />
 
