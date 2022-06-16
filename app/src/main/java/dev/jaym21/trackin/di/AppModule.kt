@@ -47,11 +47,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDistanceGoal(sharedPreferences: SharedPreferences) =
-        sharedPreferences.getInt(Constants.DISTANCE_GOAL, 1)
-
-    @Provides
-    @Singleton
     fun provideIsFirstRun(sharedPreferences: SharedPreferences) =
         sharedPreferences.getBoolean(Constants.IS_FIRST_RUN, true)
 }
