@@ -72,7 +72,6 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
                 val totalDistance = round(km * 10f) / 10f
 
                 binding.tvTotalDistance.text = totalDistance.toString()
-
             }
         }
 
@@ -156,8 +155,16 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
         entries.add(PieEntry(distanceGoalCompleted, "Distance Completed"))
         colors.add(ContextCompat.getColor(requireContext(), R.color.red))
-        entries.add(PieEntry(distanceGoal - distanceGoalCompleted, "Distance Remaining"))
-        colors.add(ContextCompat.getColor(requireContext(), R.color.red_light))
+
+        val distanceRemaining = distanceGoal - distanceGoalCompleted
+        if (distanceRemaining >= 0) {
+            entries.add(PieEntry(distanceGoal - distanceGoalCompleted, "Distance Remaining"))
+            colors.add(ContextCompat.getColor(requireContext(), R.color.red_light))
+        } else {
+            entries.add(PieEntry(0f, "Distance Remaining"))
+            colors.add(ContextCompat.getColor(requireContext(), R.color.red_light))
+        }
+
 
         val dataSet = PieDataSet(entries, "Distance Goal")
         dataSet.colors = colors
@@ -191,12 +198,19 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         val entries = ArrayList<PieEntry>()
         val colors = ArrayList<Int>()
 
-        entries.add(PieEntry(120f, "Distance Completed"))
+        entries.add(PieEntry(caloriesGoalCompleted, "Calories Completed"))
         colors.add(ContextCompat.getColor(requireContext(), R.color.orange))
-        entries.add(PieEntry(180f, "Distance Remaining"))
-        colors.add(ContextCompat.getColor(requireContext(), R.color.orange_light))
 
-        val dataSet = PieDataSet(entries, "Distance Goal")
+        val caloriesRemaining = caloriesGoal - caloriesGoalCompleted
+        if (caloriesRemaining >= 0) {
+            entries.add(PieEntry(caloriesRemaining, "Calories Remaining"))
+            colors.add(ContextCompat.getColor(requireContext(), R.color.orange_light))
+        } else {
+            entries.add(PieEntry(0f, "Calories Remaining"))
+            colors.add(ContextCompat.getColor(requireContext(), R.color.orange_light))
+        }
+
+        val dataSet = PieDataSet(entries, "Calories Goal")
         dataSet.colors = colors
         dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.transparent)
 
