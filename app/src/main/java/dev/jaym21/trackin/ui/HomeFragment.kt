@@ -165,7 +165,6 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
             colors.add(ContextCompat.getColor(requireContext(), R.color.red_light))
         }
 
-
         val dataSet = PieDataSet(entries, "Distance Goal")
         dataSet.colors = colors
         dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.transparent)

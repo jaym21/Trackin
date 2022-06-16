@@ -20,6 +20,7 @@ class DailyGoalWorker @AssistedInject constructor(private val sharedPreferences:
 
         sharedPreferences.edit()
             .putFloat(Constants.DISTANCE_GOAL_COMPLETED, 0f)
+            .putInt(Constants.CALORIES_GOAL_COMPLETED, 0)
             .apply()
 
         enqueueNextWorker()

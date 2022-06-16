@@ -58,8 +58,8 @@ class DailyGoalFragment : Fragment() {
 
         binding.ivSubmit.setOnClickListener {
             sharedPreferences.edit()
-                .putInt(Constants.CALORIES_GOAL, binding.spinnerCalories.selectedItem as Int)
                 .putInt(Constants.DISTANCE_GOAL, binding.spinnerDistance.selectedItem as Int)
+                .putInt(Constants.CALORIES_GOAL, binding.spinnerCalories.selectedItem as Int)
                 .putBoolean(Constants.IS_FIRST_RUN, false)
                 .apply()
 

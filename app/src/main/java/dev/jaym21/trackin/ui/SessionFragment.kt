@@ -232,7 +232,9 @@ class SessionFragment : Fragment() {
             mainViewModel.addRun(session)
 
             val distanceGoalCompleted = sharedPreferences.getFloat(Constants.DISTANCE_GOAL_COMPLETED, 0F)
+            val caloriesGoalCompleted = sharedPreferences.getInt(Constants.CALORIES_GOAL_COMPLETED, 0)
             sharedPreferences.edit()
+                .putInt(Constants.CALORIES_GOAL_COMPLETED, caloriesGoalCompleted + caloriesBurned)
                 .putFloat(Constants.DISTANCE_GOAL_COMPLETED, distanceGoalCompleted + distanceInKms)
                 .apply()
 
