@@ -9,11 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jaym21.trackin.R
 import dev.jaym21.trackin.databinding.FragmentDailyGoalBinding
 import dev.jaym21.trackin.ui.MainActivity
 import dev.jaym21.trackin.util.Constants
+import dev.jaym21.trackin.util.Utilities
+import dev.jaym21.trackin.worker.DailyGoalWorker
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,6 +56,16 @@ class DailyGoalFragment : Fragment() {
                 .putInt(Constants.DISTANCE_GOAL, binding.spinnerDistance.selectedItem as Int)
                 .putBoolean(Constants.IS_FIRST_RUN, false)
                 .apply()
+
+            //enqueuing worker
+            val delay = Utilities.getNextDayTimestamp() - System.currentTimeMillis()
+            if (delay > 0) {
+                val dailyWork = OneTimeWorkRequest.Builder(DailyGoalWorker::class.java)
+                    .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                    .build()
+
+                WorkManager.getInstance(requireContext().applicationContext).enqueue(dailyWork)
+            }
 
             startActivity(Intent(requireActivity(), MainActivity::class.java))
             requireActivity().finish()
