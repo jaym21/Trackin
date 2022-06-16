@@ -28,6 +28,7 @@ class DailyGoalFragment : Fragment() {
     private val binding: FragmentDailyGoalBinding
         get() = _binding!!
     private val goalDistance = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30)
+    private val goalCalories = listOf(100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
@@ -43,9 +44,13 @@ class DailyGoalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item_layout, goalDistance)
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
-        binding.spinnerDistance.adapter = adapter
+        val distanceAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_layout, goalDistance)
+        distanceAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        binding.spinnerDistance.adapter = distanceAdapter
+
+        val caloriesAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_layout, goalCalories)
+        caloriesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        binding.spinnerCalories.adapter = caloriesAdapter
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
@@ -53,6 +58,7 @@ class DailyGoalFragment : Fragment() {
 
         binding.ivSubmit.setOnClickListener {
             sharedPreferences.edit()
+                .putInt(Constants.CALORIES_GOAL, binding.spinnerCalories.selectedItem as Int)
                 .putInt(Constants.DISTANCE_GOAL, binding.spinnerDistance.selectedItem as Int)
                 .putBoolean(Constants.IS_FIRST_RUN, false)
                 .apply()

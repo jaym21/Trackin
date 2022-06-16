@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.onboard.DailyGoalFragment"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".ui.onboard.DailyGoalFragment">
 
     <TextView
         android:id="@+id/tvDailyGoalText"
@@ -19,42 +19,78 @@
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
     <TextView
-        android:id="@+id/tvDailyGoalInfo"
+        android:id="@+id/tvDailyGoalDistanceInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/avenir_medium"
         android:text="@string/add_the_distance_goal_you_want_to_complete_daily"
         android:textColor="@color/white_alpha_80"
-        android:fontFamily="@font/avenir_medium"
         app:layout_constraintBottom_toTopOf="@id/spinnerDistance"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="30dp"/>
-    
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Spinner
         android:id="@+id/spinnerDistance"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:layout_marginStart="30dp"
         android:background="@drawable/spinner_shape"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="30dp"/>
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/km"
-        android:textSize="14sp"
-        android:elevation="10dp"
-        android:textColor="@color/blue_200"
-        android:fontFamily="@font/avenir_bold"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="10dp"
-        app:layout_constraintTop_toTopOf="@id/spinnerDistance"
+        android:elevation="10dp"
+        android:fontFamily="@font/avenir_bold"
+        android:text="@string/km"
+        android:textColor="@color/blue_200"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/spinnerDistance"
         app:layout_constraintStart_toEndOf="@id/spinnerDistance"
-        android:layout_marginStart="16dp"/>
+        app:layout_constraintTop_toTopOf="@id/spinnerDistance" />
+
+    <TextView
+        android:id="@+id/tvDailyGoalCaloriesInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/avenir_medium"
+        android:text="@string/add_the_calories_goal_you_want_to_burn_daily"
+        android:textColor="@color/white_alpha_80"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerCalories"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/spinner_shape"
+        app:layout_constraintTop_toBottomOf="@id/tvDailyGoalCaloriesInfo"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/avenir_bold"
+        android:text="@string/kcal"
+        android:textColor="@color/blue_200"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/spinnerCalories"
+        app:layout_constraintStart_toEndOf="@id/spinnerCalories"
+        app:layout_constraintTop_toTopOf="@id/spinnerCalories" />
 
     <ImageView
         android:id="@+id/ivBack"
@@ -85,5 +121,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/blue_200" />
-        
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
