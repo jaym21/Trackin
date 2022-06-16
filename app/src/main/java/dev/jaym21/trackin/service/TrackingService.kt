@@ -84,8 +84,8 @@ class TrackingService: LifecycleService() {
         sessionTimeInSeconds.postValue(0L)
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        when (intent?.action) {
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        when (intent.action) {
             Constants.ACTION_START_OR_RESUME -> {
                 if (isFirstRun) {
                     startForegroundService()
