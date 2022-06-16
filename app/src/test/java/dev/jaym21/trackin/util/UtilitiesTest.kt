@@ -37,4 +37,10 @@ class UtilitiesTest {
         val date = Utilities.getDateFromTimestamp(1654498274676)
         assertThat(date).isNotNull()
     }
+
+    @Test
+    fun `Get the timestamp for next day`() {
+        val timestamp = Utilities.getNextDayTimestamp()
+        assertThat(timestamp).isNotNull()
+    }
 }
