@@ -37,8 +37,6 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     lateinit var sharedPreferences: SharedPreferences
     @set:Inject
     var userName = ""
-    @set:Inject
-    var distanceGoal = 0
     private val sessionAdapter = SessionRVAdapter(this)
 
     override fun onCreateView(
@@ -57,7 +55,8 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
         binding.tvGreetUser.text = "Hello, $userName"
 
-        setUpGoalPieChart()
+        setUpDistanceGoalPieChart()
+        setUpCaloriesGoalPieChart()
 
         mainViewModel.totalDistance.observe(viewLifecycleOwner) {
             if (it == null) {
@@ -133,21 +132,24 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         }
     }
 
-    private fun setUpGoalPieChart() {
+    private fun setUpDistanceGoalPieChart() {
 
+        val distanceGoal = sharedPreferences.getInt(Constants.DISTANCE_GOAL, 1)
         val distanceGoalCompleted = sharedPreferences.getFloat(Constants.DISTANCE_GOAL_COMPLETED, 0F)
+
         binding.tvDailyDistanceGoalCompletion.text = "${distanceGoalCompleted}/${distanceGoal} km"
 
-        binding.pieChartGoal.isDrawHoleEnabled = true
-        binding.pieChartGoal.holeRadius = 65f
-        binding.pieChartGoal.setUsePercentValues(true)
-        binding.pieChartGoal.setDrawEntryLabels(false)
-        binding.pieChartGoal.setDrawCenterText(true)
-        binding.pieChartGoal.isRotationEnabled = false
-        binding.pieChartGoal.setTouchEnabled(false)
-        binding.pieChartGoal.highlightValues(null)
-        binding.pieChartGoal.setHoleColor(ContextCompat.getColor(requireContext(), R.color.black))
-        binding.pieChartGoal.animateY(1400, Easing.EaseInOutQuad)
+        binding.pieChartDistanceGoal.isDrawHoleEnabled = true
+        binding.pieChartDistanceGoal.holeRadius = 65f
+        binding.pieChartDistanceGoal.description.isEnabled = false
+        binding.pieChartDistanceGoal.setUsePercentValues(true)
+        binding.pieChartDistanceGoal.setDrawEntryLabels(false)
+        binding.pieChartDistanceGoal.setDrawCenterText(true)
+        binding.pieChartDistanceGoal.isRotationEnabled = false
+        binding.pieChartDistanceGoal.setTouchEnabled(false)
+        binding.pieChartDistanceGoal.highlightValues(null)
+        binding.pieChartDistanceGoal.setHoleColor(ContextCompat.getColor(requireContext(), R.color.black))
+        binding.pieChartDistanceGoal.animateY(1400, Easing.EaseInOutQuad)
 
         val entries = ArrayList<PieEntry>()
         val colors = ArrayList<Int>()
@@ -162,9 +164,46 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.transparent)
 
         val data = PieData(dataSet)
-        binding.pieChartGoal.legend.isEnabled = false
-        binding.pieChartGoal.data = data
-        binding.pieChartGoal.invalidate()
+        binding.pieChartDistanceGoal.legend.isEnabled = false
+        binding.pieChartDistanceGoal.data = data
+        binding.pieChartDistanceGoal.invalidate()
+    }
+
+    private fun setUpCaloriesGoalPieChart() {
+
+        val caloriesGoal = sharedPreferences.getInt(Constants.CALORIES_GOAL, 0)
+        val caloriesGoalCompleted = sharedPreferences.getFloat(Constants.CALORIES_GOAL_COMPLETED, 0F)
+
+        binding.tvDailyCaloriesGoalCompletion.text = "${caloriesGoalCompleted}/${caloriesGoal} kcal"
+
+        binding.pieChartCaloriesGoal.isDrawHoleEnabled = true
+        binding.pieChartCaloriesGoal.holeRadius = 65f
+        binding.pieChartCaloriesGoal.description.isEnabled = false
+        binding.pieChartCaloriesGoal.setUsePercentValues(true)
+        binding.pieChartCaloriesGoal.setDrawEntryLabels(false)
+        binding.pieChartCaloriesGoal.setDrawCenterText(true)
+        binding.pieChartCaloriesGoal.isRotationEnabled = false
+        binding.pieChartCaloriesGoal.setTouchEnabled(false)
+        binding.pieChartCaloriesGoal.highlightValues(null)
+        binding.pieChartCaloriesGoal.setHoleColor(ContextCompat.getColor(requireContext(), R.color.black))
+        binding.pieChartCaloriesGoal.animateY(1400, Easing.EaseInOutQuad)
+
+        val entries = ArrayList<PieEntry>()
+        val colors = ArrayList<Int>()
+
+        entries.add(PieEntry(120f, "Distance Completed"))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.orange))
+        entries.add(PieEntry(180f, "Distance Remaining"))
+        colors.add(ContextCompat.getColor(requireContext(), R.color.orange_light))
+
+        val dataSet = PieDataSet(entries, "Distance Goal")
+        dataSet.colors = colors
+        dataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.transparent)
+
+        val data = PieData(dataSet)
+        binding.pieChartCaloriesGoal.legend.isEnabled = false
+        binding.pieChartCaloriesGoal.data = data
+        binding.pieChartCaloriesGoal.invalidate()
     }
 
     private fun setUpRecyclerView() {
