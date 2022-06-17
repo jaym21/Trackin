@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clSessionRoot"
-    android:background="?attr/bg_color_light"
     android:paddingHorizontal="16dp"
     android:paddingTop="16dp">
 

@@ -2,6 +2,7 @@ package dev.jaym21.trackin.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -147,7 +148,6 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         binding.pieChartDistanceGoal.isRotationEnabled = false
         binding.pieChartDistanceGoal.setTouchEnabled(false)
         binding.pieChartDistanceGoal.highlightValues(null)
-        binding.pieChartDistanceGoal.setHoleColor(ContextCompat.getColor(requireContext(), R.color.black))
         binding.pieChartDistanceGoal.animateY(1400, Easing.EaseInOutQuad)
 
         val entries = ArrayList<PieEntry>()
@@ -178,7 +178,7 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
     private fun setUpCaloriesGoalPieChart() {
 
         val caloriesGoal = sharedPreferences.getInt(Constants.CALORIES_GOAL, 0)
-        val caloriesGoalCompleted = sharedPreferences.getFloat(Constants.CALORIES_GOAL_COMPLETED, 0F)
+        val caloriesGoalCompleted = sharedPreferences.getInt(Constants.CALORIES_GOAL_COMPLETED, 0)
 
         binding.tvDailyCaloriesGoalCompletion.text = "${caloriesGoalCompleted}/${caloriesGoal} kcal"
 
@@ -191,18 +191,17 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
         binding.pieChartCaloriesGoal.isRotationEnabled = false
         binding.pieChartCaloriesGoal.setTouchEnabled(false)
         binding.pieChartCaloriesGoal.highlightValues(null)
-        binding.pieChartCaloriesGoal.setHoleColor(ContextCompat.getColor(requireContext(), R.color.black))
         binding.pieChartCaloriesGoal.animateY(1400, Easing.EaseInOutQuad)
 
         val entries = ArrayList<PieEntry>()
         val colors = ArrayList<Int>()
 
-        entries.add(PieEntry(caloriesGoalCompleted, "Calories Completed"))
+        entries.add(PieEntry(caloriesGoalCompleted.toFloat(), "Calories Completed"))
         colors.add(ContextCompat.getColor(requireContext(), R.color.orange))
 
         val caloriesRemaining = caloriesGoal - caloriesGoalCompleted
         if (caloriesRemaining >= 0) {
-            entries.add(PieEntry(caloriesRemaining, "Calories Remaining"))
+            entries.add(PieEntry(caloriesRemaining.toFloat(), "Calories Remaining"))
             colors.add(ContextCompat.getColor(requireContext(), R.color.orange_light))
         } else {
             entries.add(PieEntry(0f, "Calories Remaining"))
