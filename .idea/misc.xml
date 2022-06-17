@@ -21,6 +21,7 @@
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/distance_marker_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_all_sessions.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_daily_goal.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_edit.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_onboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_onboarding.xml" value="0.35260416666666666" />
@@ -28,6 +29,8 @@
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_session.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_session_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_statistics.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_update.xml" value="0.36666666666666664" />
+        <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_update_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/fragment_user_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/permission_settings_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Programming/AndroidAppDevelopment/Trackin/app/src/main/res/layout/session_item_layout.xml" value="0.33" />

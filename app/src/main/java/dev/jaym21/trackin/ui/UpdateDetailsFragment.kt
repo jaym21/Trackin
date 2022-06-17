@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dev.jaym21.trackin.R
-import dev.jaym21.trackin.databinding.FragmentEditBinding
+import dev.jaym21.trackin.databinding.FragmentUpdateDetailsBinding
 
+class UpdateDetailsFragment : Fragment() {
 
-class EditFragment : Fragment() {
-
-    private var _binding: FragmentEditBinding? = null
-    private val binding: FragmentEditBinding
+    private var _binding: FragmentUpdateDetailsBinding? = null
+    private val binding: FragmentUpdateDetailsBinding
         get() = _binding!!
 
     override fun onCreateView(
@@ -20,12 +19,8 @@ class EditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentEditBinding.inflate(inflater, container, false)
+        _binding = FragmentUpdateDetailsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroy() {
