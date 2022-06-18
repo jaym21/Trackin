@@ -28,10 +28,26 @@
                 android:fontFamily="@font/avenir_bold"
                 android:textColor="?attr/text_color"
                 android:textSize="20sp"
+                android:ellipsize="end"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/ivNewSession"
+                app:layout_constraintEnd_toStartOf="@id/ivUpdateDetails"
                 tools:text="Hello, XYZ" />
+
+            <ImageView
+                android:id="@+id/ivUpdateDetails"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="?attr/bg_color_light"
+                android:src="@drawable/ic_edit"
+                app:tint="@color/blue_200"
+                android:elevation="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ivNewSession"/>
 
             <ImageView
                 android:id="@+id/ivNewSession"

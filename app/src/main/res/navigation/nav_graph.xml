@@ -42,6 +42,14 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_updateDetailsFragment"
+            app:destination="@id/updateDetailsFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -80,5 +88,10 @@
         android:name="dev.jaym21.trackin.ui.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/updateDetailsFragment"
+        android:name="dev.jaym21.trackin.ui.UpdateDetailsFragment"
+        android:label="fragment_update_details"
+        tools:layout="@layout/fragment_update_details" />
 
 </navigation>

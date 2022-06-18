@@ -2,10 +2,12 @@ package dev.jaym21.trackin.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,11 +43,21 @@ class UpdateDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val distanceAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_layout, goalDistance)
+        distanceAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        binding.spinnerDistance.adapter = distanceAdapter
+
+        val caloriesAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item_layout, goalCalories)
+        caloriesAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout)
+        binding.spinnerCalories.adapter = caloriesAdapter
+
         binding.etUserName.setText(userName)
         binding.etUserWeight.setText(userWeight.toString())
 
         val distanceIndex = goalDistance.indexOf(sharedPreferences.getInt(Constants.DISTANCE_GOAL, 1))
         val caloriesIndex = goalCalories.indexOf(sharedPreferences.getInt(Constants.CALORIES_GOAL, 100))
+
+        Log.d("TAGYOYO", "onViewCreated: distanceIndex $distanceIndex caloriesIndex $caloriesIndex")
 
         binding.spinnerDistance.setSelection(distanceIndex)
         binding.spinnerCalories.setSelection(caloriesIndex)
@@ -59,6 +71,8 @@ class UpdateDetailsFragment : Fragment() {
                         .putInt(Constants.DISTANCE_GOAL, binding.spinnerDistance.selectedItem as Int)
                         .putInt(Constants.CALORIES_GOAL, binding.spinnerCalories.selectedItem as Int)
                         .apply()
+
+                    findNavController().popBackStack()
                 } else {
                     Snackbar.make(binding.root, "Your weight is needed to proceed", Snackbar.LENGTH_SHORT).show()
                 }

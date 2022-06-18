@@ -127,6 +127,10 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
             findNavController().navigate(R.id.action_homeFragment_to_sessionFragment)
         }
 
+        binding.ivUpdateDetails.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_updateDetailsFragment)
+        }
+
         binding.llAllSessions.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_allSessionsFragment)
         }
