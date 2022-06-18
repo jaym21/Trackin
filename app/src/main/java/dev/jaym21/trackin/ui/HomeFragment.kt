@@ -177,7 +177,7 @@ class HomeFragment : Fragment(), ISessionRVAdapter {
 
     private fun setUpCaloriesGoalPieChart() {
 
-        val caloriesGoal = sharedPreferences.getInt(Constants.CALORIES_GOAL, 0)
+        val caloriesGoal = sharedPreferences.getInt(Constants.CALORIES_GOAL, 100)
         val caloriesGoalCompleted = sharedPreferences.getInt(Constants.CALORIES_GOAL_COMPLETED, 0)
 
         binding.tvDailyCaloriesGoalCompletion.text = "${caloriesGoalCompleted}/${caloriesGoal} kcal"

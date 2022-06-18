@@ -244,6 +244,8 @@ class StatisticsFragment : Fragment() {
         binding.speedBarChart.description.isEnabled = false
         binding.speedBarChart.legend.isEnabled = false
         binding.speedBarChart.setExtraOffsets(0f, 0f, 0f, 10f)
+//        binding.speedBarChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.white)
+//        binding.speedBarChart.axisLeft.textColor = ContextCompat.getColor(requireContext(), R.color.white)
 
         sessions.forEach {
             xAxisLabelSpeed.add("${Utilities.getDateFromTimestamp(it.timestamp)}'${Utilities.getMonthFullName(it.timestamp).substring(0,3)}")
